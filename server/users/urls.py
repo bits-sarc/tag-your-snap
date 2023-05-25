@@ -1,7 +1,7 @@
 from django.urls import path, re_path
 
-from . import views
+from .views import GoogleView
 
 urlpatterns = [
-    path('google/', views.GoogleView.as_view(), name='google'),
+    path('google/', GoogleView.as_view(), name='google'),
 ]

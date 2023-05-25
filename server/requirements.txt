@@ -6,6 +6,7 @@ cryptography==40.0.2
 defusedxml==0.7.1
 Django==4.2.1
 djangorestframework==3.14.0
+djangorestframework-simplejwt==5.2.2
 dnspython==2.3.0
 idna==3.4
 Markdown==3.4.3

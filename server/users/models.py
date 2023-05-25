@@ -63,3 +63,11 @@ class StudentProfile(models.Model):
     )
     bits_id = models.CharField(max_length=20)
     branch_code = models.CharField(max_length=10)
+
+
+class Dimension(models.Model):
+    x = models.FloatField()
+    y = models.FloatField()
+    student = models.OneToOneField(
+        StudentProfile, related_name="dimension", on_delete=models.CASCADE
+    )
