@@ -1,0 +1,11 @@
+{% load crispy_forms_tags %}
+{% block content %}
+<div class='content-section'>
+    <button class="btn btn-outline-info">
+        <a href="{% provider_login_url 'google'%}">
+            <i class="fab fa-google"></i>
+            Login with Bits Mail
+        </a>
+    </button>
+</div>
+{% endblock content %}
