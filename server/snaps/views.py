@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
 from .serializers import SnapSerializer, BatchSerializer
+from django.contrib.auth.models import User
 from .models import Batch
 
 
@@ -22,9 +23,10 @@ send back list of snaps
 branch codes
 """
 
-@api_view(['GET', 'POST'])
-@permission_classes([IsAdminUser])
+
+
 class SnapView(APIView):
+    permission_classes=[IsAdminUser]
     parser_classes = (MultiPartParser, FormParser)
 
     def post(self, request, format=None, *args, **kwargs):
@@ -54,3 +56,20 @@ post request
 snap id
 
 """
+
+
+class SnapDetailView(APIView):
+    
+    def get(self,request,format=None):
+        if request.user.is_student:
+            batch = Batch.objects.get(batch_code=request.user.s_profile.branch_code)
+            batch_serializer = BatchSerializer(batch)
+            return Response(batch_serializer.data)
+        elif request.user.is_admin:
+            batch = Batch.objects.all()
+            batch_serializer = BatchSerializer(batch, many=True)
+            return Response(batch_serializer.data)
+        return Response(batch_serializer.errors, status=status.HTTP_204_NO_CONTENT)
+    
+
+
