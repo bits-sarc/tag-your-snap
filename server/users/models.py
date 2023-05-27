@@ -69,5 +69,5 @@ class Dimension(models.Model):
     x = models.FloatField()
     y = models.FloatField()
     student = models.OneToOneField(
-        StudentProfile, related_name="dimension", on_delete=models.CASCADE
+        StudentProfile, related_name="dimension", on_delete=models.CASCADE,null=True
     )
