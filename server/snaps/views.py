@@ -10,23 +10,8 @@ from django.contrib.auth.models import User
 from .models import Batch
 
 
-# Create your views here.
-"""
-Snap View
-
-post request
-upload url: we can snap and specify branch code
-rename file to branch code .extension
-
-get request
-send back list of snaps
-branch codes
-"""
-
-
-
 class SnapView(APIView):
-    permission_classes=[IsAdminUser]
+    permission_classes = [IsAdminUser]
     parser_classes = (MultiPartParser, FormParser)
 
     def post(self, request, format=None, *args, **kwargs):
@@ -43,33 +28,38 @@ class SnapView(APIView):
         return Response(batch_serializer.data)
 
 
-"""
-SnapDetailsView
-get request : batch code
-snap id
-image url
-batch code
-- if student user then only send if the branch matches their branch code
-- if superuser then send
-
-post request
-snap id
-
-"""
-
-
 class SnapDetailView(APIView):
-    
-    def get(self,request,format=None):
+    permission_classes = [IsAuthenticated]
+
+    '''
+    TODO:
+    send list of names of students in that branch
+    '''
+    def get(self, request, batch_code):
         if request.user.is_student:
+            if batch_code != request.user.s_profile.branch_code:
+                return Response({'error': False, 'data': batch_serializer.data}, status=status.HTTP_)
             batch = Batch.objects.get(batch_code=request.user.s_profile.branch_code)
             batch_serializer = BatchSerializer(batch)
-            return Response(batch_serializer.data)
+            return Response({'error': False, 'data': batch_serializer.data})
+
         elif request.user.is_admin:
-            batch = Batch.objects.all()
-            batch_serializer = BatchSerializer(batch, many=True)
-            return Response(batch_serializer.data)
+            batch = Batch.objects.get(batch_code=batch_code)
+            batch_serializer = BatchSerializer(batch)
+            return Response({ 'error': False, 'data': batch_serializer.data })
+
         return Response(batch_serializer.errors, status=status.HTTP_204_NO_CONTENT)
-    
 
-
+    def post(self, request, batch_code):
+        '''
+        json request body:
+        array of people 
+        [
+            {
+                user_id: 1,
+                x: 123,
+                y: 123,
+            }
+        ]
+        '''
+        pass
