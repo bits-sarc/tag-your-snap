@@ -24,8 +24,6 @@ services:
       - 8000
     depends_on:
       - db
-      - broker
-      - celery_worker
     volumes:
       - staticfiles:/home/app/web/staticfiles
       - mediafiles:/home/app/web/media
