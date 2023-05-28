@@ -4,12 +4,6 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 
-class StudentNameSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserProfile
-        fields = ["name"]
-
-
 class StudentSerializer(serializers.ModelSerializer):
     name = serializers.CharField(read_only=True)
 

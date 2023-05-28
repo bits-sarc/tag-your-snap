@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Branch
-from users.serializers import LocationSerializer, StudentSerializer, StudentNameSerializer
+from users.serializers import LocationSerializer, StudentSerializer
 
 
 class BranchSerializer(serializers.ModelSerializer):
@@ -11,7 +11,8 @@ class BranchSerializer(serializers.ModelSerializer):
 
 class BranchDetailsSerializer(BranchSerializer):
     locations = LocationSerializer(many=True)
+    students = StudentSerializer(many=True)
 
     class Meta:
         model = Branch
-        fields = BranchSerializer.Meta.fields + ["locations"]
+        fields = BranchSerializer.Meta.fields + ["locations", "students"]
