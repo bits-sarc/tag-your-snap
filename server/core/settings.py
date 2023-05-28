@@ -64,7 +64,6 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     "SIGNING_KEY": os.environ.get('SECRET_KEY', default='ilovecats'),
-    "TOKEN_OBTAIN_SERIALIZER": "users.serializers.CustomJWTToken",
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
 }
 

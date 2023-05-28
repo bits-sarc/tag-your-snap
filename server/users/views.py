@@ -6,6 +6,8 @@ from rest_framework.response import Response
 import requests
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
+import jwt
+import os
 
 # Create your views here.
 class GoogleView(APIView):
@@ -29,6 +31,16 @@ class GoogleView(APIView):
             return Response(content, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
         token = RefreshToken.for_user(user)  # generate token without username & password
+        decode_jwt = jwt.decode(str(token.access_token), os.environ.get('SECRET_KEY', default='ilovecats'), algorithms=["HS256"])
+
+        if not (user.is_superuser or user.is_staff):
+            decode_jwt['bits_id'] = user.profile.bits_id
+            decode_jwt['branch'] = user.profile.branch.branch_code
+
+        decode_jwt['email'] = user.email
+
+        encoded_token = jwt.encode(decode_jwt, os.environ.get('SECRET_KEY', default='ilovecats'))
+
         response = { 'error': False, 'message': 'successfully logged in', 'data': {} }
-        response['data']['access_token'] = str(token.access_token)
+        response['data']['access_token'] = str(encoded_token)
         return Response(response, status=status.HTTP_200_OK)
