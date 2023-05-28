@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED=1
 
 RUN apt-get update && apt-get install -y netcat
 
-RUN useradd --user-group --create-home --no-log-init --shell /bin/bash app
+#RUN useradd --user-group --create-home --no-log-init --shell /bin/bash app
 
 ENV APP_HOME=/home/app/web
 
@@ -20,8 +20,8 @@ COPY requirements.txt $APP_HOME
 RUN pip install -r requirements.txt
 
 COPY . $APP_HOME
-RUN chown -R app:app $APP_HOME
+#RUN chown -R app:app $APP_HOME
 
-USER app
+#USER app
 
 ENTRYPOINT [ "/home/app/web/entrypoint.sh" ]
