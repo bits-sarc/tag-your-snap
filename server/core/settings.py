@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
 ALLOWED_HOSTS = ['localhost', '0.0.0.0', '127.0.0.1', '20.68.16.151']
-
+CSRF_TRUSTED_ORIGINS = ['localhost', '0.0.0.0', '127.0.0.1', '20.68.16.151']
 
 # Application definition
 
