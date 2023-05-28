@@ -24,5 +24,5 @@ class Batch(models.Model):
 class Snap(models.Model):
     batch = models.OneToOneField(Batch, related_name="snap", on_delete=models.CASCADE)
     student = models.ForeignKey(
-        StudentUser, related_name="student_snap", on_delete=models.CASCADE,null=True
+        StudentUser, related_name="student_snap", on_delete=models.CASCADE
     )
