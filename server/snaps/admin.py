@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import Batch ,Snap
+from .models import Branch
 
-admin.site.register(Batch)
-admin.site.register(Snap)
+admin.site.register(Branch)

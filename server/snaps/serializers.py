@@ -1,18 +1,17 @@
 from rest_framework import serializers
-from .models import Snap , Batch
-from users.serializers import StudentProfile ,StudentSerializer
+from .models import Branch
+from users.serializers import LocationSerializer, StudentSerializer, StudentNameSerializer
 
 
+class BranchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Branch
+        fields = ["branch_name", "branch_code", "snap_image"]
 
-class BatchSerializer(serializers.ModelSerializer):
-    class Meta :
-        model = Batch
-        fields = ['batch_name','batch_code','snap_image']
 
-class SnapSerializer(serializers.ModelSerializer):
-    student = StudentSerializer(many=True, read_only=True)
-    batch = BatchSerializer(read_only=True)
+class BranchDetailsSerializer(BranchSerializer):
+    locations = LocationSerializer(many=True)
 
     class Meta:
-        model = Snap
-        fields = ['id','batch','student']
+        model = Branch
+        fields = BranchSerializer.Meta.fields + ["locations"]

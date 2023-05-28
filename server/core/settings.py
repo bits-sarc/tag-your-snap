@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +28,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
 ALLOWED_HOSTS = ['localhost', '0.0.0.0', '127.0.0.1', '20.68.16.151']
-CSRF_TRUSTED_ORIGINS = ['https://20.68.16.151']
+CSRF_TRUSTED_ORIGINS = ['https://20.68.16.151', 'http://127.0.0.1:1337']
 
 # Application definition
 
@@ -63,9 +64,11 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     "SIGNING_KEY": os.environ.get('SECRET_KEY', default='ilovecats'),
+    "TOKEN_OBTAIN_SERIALIZER": "users.serializers.CustomJWTToken",
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
 }
 
-AUTH_USER_MODEL = "users.CustomUser"
+USERNAME_FIELD = "email"
 
 ROOT_URLCONF = 'core.urls'
 

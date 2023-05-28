@@ -1,14 +1,12 @@
-from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from rest_framework.utils import json
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
-from .serializers import SnapSerializer, BatchSerializer
-from users.serializers import DimensionSerializer ,StudentSerializer
-from django.contrib.auth.models import User
-from .models import Batch ,Snap
+from snaps.serializers import BranchSerializer, BranchDetailsSerializer
+from users.serializers import LocationSerializer, StudentSerializer
+from snaps.models import Branch
+from users.models import Location, UserProfile
 
 
 class SnapView(APIView):
@@ -16,75 +14,159 @@ class SnapView(APIView):
     parser_classes = (MultiPartParser, FormParser)
 
     def post(self, request, format=None, *args, **kwargs):
-        batch_serializer = BatchSerializer(data=request.data)
-        if batch_serializer.is_valid():
-            batch_serializer.save()
-            return Response(batch_serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(batch_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            branch_serializer = BranchSerializer(data=request.data)
+            if branch_serializer.is_valid():
+                branch_serializer.save()
+                return Response(
+                    {"error": False, "data": branch_serializer.data},
+                    status=status.HTTP_201_CREATED,
+                )
+            else:
+                return Response(
+                    {"error": True, "message": branch_serializer.errors},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+        except Exception as e:
+            print(e)
+            return Response(
+                {"error": True, "message": e.message},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
     def get(self, request, format=None):
-        batch = Batch.objects.all()
-        batch_serializer = BatchSerializer(batch, many=True)
-        return Response(batch_serializer.data)
+        try:
+            branch = Branch.objects.all()
+            branch_serializer = BranchSerializer(branch, many=True)
+            return Response({"error": False, "data": branch_serializer.data})
+        except Exception as e:
+            print(e)
+            return Response(
+                {"error": True, "message": e.message},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
 
 class SnapDetailView(APIView):
     permission_classes = [IsAuthenticated]
-    parser_classes = (FormParser)  
-    '''
-    TODO:
-    send list of names of students in that branch
-    '''
-    def get(self, request, batch_code):
-        if Batch.objects.get(batch_code=batch_code):
-            if request.user.is_student:
-                if batch_code != request.user.s_profile.branch_code:
-                    return Response({'error': False, 'data': batch_serializer.data}, status=status.HTTP_400_BAD_REQUEST)
-                batch = Batch.objects.get(batch_code=request.user.s_profile.branch_code)
-                snap = Snap.objects.filter(batch__batch_code=batch_code)
-                snap_serializer = SnapSerializer(snap,many=True)
-                batch_serializer = BatchSerializer(batch)
-                return Response({'error': False, 'data': {batch_serializer.data, snap_serializer.data}})
 
-            elif request.user.is_admin:
-                batch = Batch.objects.get(batch_code=batch_code)
-                snap = Snap.objects.filter(batch__batch_code=batch_code)
-                snap_serializer = SnapSerializer(snap,many=True)
-                batch_serializer = BatchSerializer(batch)
-                return Response({ 'error': False, 'data': {batch_serializer.data, snap_serializer.data.student}})
-        else:
-            return Response(batch_serializer.errors, status=status.HTTP_204_NO_CONTENT)
+    def get(self, request, branch_code):
+        try:
+            if not Branch.objects.filter(branch_code=branch_code).exists():
+                return Response(
+                    {"error": True, "message": "invalid branch code"},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
 
-    '''
-        json request body:
-        array of people 
-        [
-            {   
-                user_id: 1,
-                x: 123,
-                y: 123,
-            }
-        ]
-    '''
-        
-    def post(self, request, batch_code):
-        data_snap = {
-            'batch':Batch.objects.get(batch_code=batch_code),
-            'student':request.user
-        }
-        data_dim = {
-            'x':request.data['x'],
-            'y':request.data['y'],
-            'student':request.user.s_profile
-        }
-        snap_serializer = SnapSerializer(data=data_snap)
-        dim_serializer = DimensionSerializer(data=data_dim)
-        if snap_serializer.is_valid() and dim_serializer.is_valid():
-            snap_serializer.save()
-            dim_serializer.save()
-            return Response({snap_serializer.data , dim_serializer.data}, status=status.HTTP_201_CREATED)
-        else:
-            return Response({snap_serializer.errors, dim_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            if not (request.user.is_staff or request.user.is_superuser):
+                if branch_code != request.user.profile.branch.branch_code:
+                    return Response(
+                        {"error": True, "message": "you cannot access this snap"},
+                        status=status.HTTP_400_BAD_REQUEST,
+                    )
+                branch = Branch.objects.get(
+                    branch_code=request.user.profile.branch.branch_code
+                )
+                branch_serializer = BranchDetailsSerializer(branch)
+                return Response({"error": False, "data": branch_serializer.data})
 
+            branch = Branch.objects.get(branch_code=branch_code)
+            branch_serializer = BranchDetailsSerializer(branch)
+            return Response(
+                {
+                    "error": False,
+                    "data": branch_serializer.data,
+                }
+            )
+        except Exception as e:
+            print(e)
+            return Response(
+                {"error": True, "message": e.message},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
+    def post(self, request, branch_code):
+        try:
+            if not (request.user.is_staff or request.user.is_superuser):
+                return Response(status=status.HTTP_403_FORBIDDEN)
+
+            if not Branch.objects.filter(branch_code=branch_code).exists():
+                return Response(
+                    {"error": True, "message": "invalid branch code"},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
+
+            final_locations = request.data["locations"]
+            branch = Branch.objects.get(branch_code=branch_code)
+
+            ids = []
+            for loc in final_locations:
+                if id in loc:
+                    db_loc = Location.objects.get(pk=id)
+                    db_loc.x = loc["x"]
+                    db_loc.y = loc["y"]
+                    db_loc.row = loc["row"]
+                    db_loc.save()
+                    ids.append(db_loc.id)
+
+                if not "row" in loc:
+                    loc["row"] = None
+
+                new = Location.objects.create(
+                    x=loc["x"], y=loc["y"], row=loc["row"], branch=branch
+                )
+                ids.append(new.id)
+
+            Location.objects.filter(branch__branch_code=branch_code).exclude(
+                id__in=ids
+            ).delete()
+
+            new_locs = LocationSerializer(
+                Location.objects.filter(branch__branch_code=branch_code), many=True
+            )
+            return Response({"error": False, "data": new_locs.data})
+        except KeyError:
+            return Response(
+                {"error": True, "message": "invalid data"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        except Exception as e:
+            print(e)
+            return Response(
+                {"error": True, "message": e.message},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+    def put(self, request, branch_code):
+        try:
+            new_taggings = request.data["taggings"]
+            if not Branch.objects.filter(branch_code=branch_code).exists():
+                return Response(
+                    {"error": True, "message": "invalid branch code"},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
+
+            for tag in new_taggings:
+                loc = Location.objects.get(pk=tag["id"])
+                user = UserProfile.objects.get(
+                    pk=tag["userprofile_id"], branch__branch_code=branch_code
+                )
+                user.location = loc
+                user.save()
+
+            new_taggings = LocationSerializer(
+                Location.objects.filter(branch__branch_code=branch_code), many=True
+            )
+            return Response({"error": False, "data": new_taggings.data})
+
+        except KeyError:
+            return Response(
+                {"error": True, "message": "invalid data"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        except Exception as e:
+            print(e)
+            return Response(
+                {"error": True, "message": e.message},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
