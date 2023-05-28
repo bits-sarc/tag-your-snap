@@ -4,3 +4,4 @@ staticfiles
 media
 *.sqlite3
 migrations
+project.env
