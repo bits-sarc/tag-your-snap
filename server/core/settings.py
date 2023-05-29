@@ -28,7 +28,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
 ALLOWED_HOSTS = ['localhost', '0.0.0.0', '127.0.0.1', '20.68.16.151']
-CSRF_TRUSTED_ORIGINS = ['https://20.68.16.151', 'http://127.0.0.1:1337', 'http://localhost:3008', 'http://localhost:3000']
+CSRF_TRUSTED_ORIGINS = ['https://20.68.16.151', 'http://127.0.0.1:1337']
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -41,12 +42,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'corsheaders',
 
     'users.apps.UsersConfig',
     'snaps.apps.SnapsConfig',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
