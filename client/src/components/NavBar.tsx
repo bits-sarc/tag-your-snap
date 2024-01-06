@@ -28,7 +28,7 @@ export default function NavBar() {
         body: JSON.stringify(data)
       });
 
-      const json = await response.json()
+      const json: { error: boolean, message: string, data?: any } = await response.json()
 
       if (json.error) {
         alert(json.message)
@@ -37,6 +37,8 @@ export default function NavBar() {
 
       setAuth(true);
       Cookies.set('jwt', json.data.access_token, { expires: 1 });
+
+      // TODO: decode jwt and set values?
     },
   });
 
