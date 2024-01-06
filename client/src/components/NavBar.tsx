@@ -1,8 +1,45 @@
 import { Link } from 'react-router-dom';
 import FancyButton from './FancyButton';
 import sarcLogo from '/sarc.svg';
+import { useGoogleLogin } from '@react-oauth/google';
+import Cookies from 'js-cookie';
+import { useState } from 'react';
 
 export default function NavBar() {
+  const [auth, setAuth] = useState<boolean>(false);
+
+  if (Cookies.get('jwt') !== undefined && !auth) {
+    setAuth(true);
+  }
+
+  const login = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      const url = "http://localhost:1337/users/google/";
+      const data = {
+        token: tokenResponse.access_token,
+      }
+
+      const response = await fetch(url, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+      });
+
+      const json = await response.json()
+
+      if (json.error) {
+        alert(json.message)
+        return
+      }
+
+      setAuth(true);
+      Cookies.set('jwt', json.data.access_token, { expires: 1 });
+    },
+  });
+
   return (
     <nav className="px-4 md:px-8 xl:px-48">
       <div className="px-2">
@@ -26,8 +63,8 @@ export default function NavBar() {
               <Link to="/">Developers</Link>
             </div>
           </div>
-          <div className="lg:basis-1/8">
-            <FancyButton text="Login" />
+          <div className="lg:basis-1/8 custom-follow-mouse">
+            <FancyButton text="Login" auth={auth} login={login} />
           </div>
           <div className="lg:basis-1/8 basis-0"></div>
         </div>
