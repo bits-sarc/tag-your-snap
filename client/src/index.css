@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.font-gilmer {
+  font-family: "Gilmer-Regular";
+}
+
+.font-gilmer-bold {
+  font-family: "Gilmer-Bold";
+}
+
+.font-gilmer-heavy {
+  font-family: "Gilmer-Heavy";
+}
+
+.font-arial {
+  font-family: 'Arial';
+}
+
+.hero-text-grad {
+  font-size: 80px;
+  background: -webkit-linear-gradient(#eee, #333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-logo {
+  translate: -50%;
+  background: linear-gradient(to left, transparent, #000 30%, #000 70%, transparent);
+}
+
+.loop-text-grad {
+  background: -webkit-linear-gradient(#eee, #333);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.marquee {
+  overflow: hidden;
+  position: relative;
+}
+
+.marquee .inner {
+  display: block;
+  width: 200%;
+  position: absolute;
+  top: 30%;
+  overflow: hidden;
+  animation: marquee 24s linear infinite;
+}
+
+.marquee .child {
+  float: left;
+  width: 50%;
+}
+
+@keyframes marquee {
+  0% {
+    left: 0;
+  }
+
+  100% {
+    left: -100%;
+  }
+}
