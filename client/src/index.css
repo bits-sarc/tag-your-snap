@@ -28,6 +28,7 @@
 .hero-logo {
   translate: -50%;
   background: linear-gradient(to left, transparent, #000 30%, #000 70%, transparent);
+  cursor: pointer;
 }
 
 .loop-text-grad {
