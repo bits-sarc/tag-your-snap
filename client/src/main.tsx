@@ -5,7 +5,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from './routes/root';
 import ErrorPage from './error-page';
 import Home from './routes/home';
-import Tag from './routes/tag';
+import Tag, { loader as branchesLoader } from './routes/tag';
+import TagSnapAdmin, { loader as snapDetailLoader } from './routes/tagSnapAdmin';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import './assets/fonts/gilmer-regular/gilmer-regular.css';
@@ -27,7 +28,13 @@ const router = createBrowserRouter([
       {
         path: "/tag",
         element: <Tag />,
+        loader: branchesLoader,
       },
+      {
+        path: "/admin/tag/:branchCode",
+        element: <TagSnapAdmin />,
+        loader: snapDetailLoader,
+      }
     ]
   }
 ]);
