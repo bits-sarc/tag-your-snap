@@ -23,5 +23,5 @@ class UserProfile(models.Model):
 class Location(models.Model):
     x = models.FloatField()
     y = models.FloatField()
-    row = models.SmallIntegerField("Row Number", blank=True, null=True, default=None)
+    row = models.SmallIntegerField("Row Number", blank=True, null=True, default=0)
     branch = models.ForeignKey(Branch, related_name="locations", on_delete=models.CASCADE)
