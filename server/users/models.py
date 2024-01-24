@@ -21,7 +21,7 @@ class UserProfile(models.Model):
 
 
 class Location(models.Model):
-    x = models.FloatField()
-    y = models.FloatField()
+    x = models.FloatField() # this is a percentage value
+    y = models.FloatField() # this is a percentage value
     row = models.SmallIntegerField("Row Number", blank=True, null=True, default=0)
     branch = models.ForeignKey(Branch, related_name="locations", on_delete=models.CASCADE)

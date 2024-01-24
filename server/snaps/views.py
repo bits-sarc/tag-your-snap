@@ -108,9 +108,10 @@ class SnapDetailView(APIView):
                     db_loc.row = loc["row"]
                     db_loc.save()
                     ids.append(db_loc.id)
+                    continue
 
                 if not "row" in loc:
-                    loc["row"] = None
+                    loc["row"] = 0
 
                 new = Location.objects.create(
                     x=loc["x"], y=loc["y"], row=loc["row"], branch=branch
