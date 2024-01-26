@@ -154,7 +154,7 @@ class SnapDetailView(APIView):
                     except Exception as e:
                         return Response(
                             {"error": True, "message": e.message},
-                            status=status.HTTP_406_NOT_ACCEPTABLE,
+                            status=status.HTTP_400_BAD_REQUEST,
                         )
                     ids.append(db_loc.id)
                 else:
@@ -205,28 +205,29 @@ class SnapDetailView(APIView):
                     {"error": True, "message": "invalid branch code"},
                     status=status.HTTP_404_NOT_FOUND,
                 )
-            if not Branch.objects.filter(branch_code=branch_code).first().is_done:
+            if Branch.objects.filter(branch_code=branch_code).first().is_done and not (request.user.is_staff or request.user.is_superuser):
                 return Response(
                     {"error": True, "message": "Branch cannot be edited "},
-                    status=status.HTTP_404_NOT_FOUND,
+                    status=status.HTTP_403_FORBIDDEN,
                 )
 
             for tag in new_taggings:
                 loc = Location.objects.get(pk=tag["id"])
-                if loc.locked:
+                if loc.locked and not (request.user.is_staff or request.user.is_superuser):
                     return Response(
-                        {
-                            "error": True,
-                            "message": f"The location:{loc} cannot be edited",
-                        }
+                        {"error": True, "message": f"The location:{loc.locked} cannot be edited",},
+                        status=status.HTTP_403_FORBIDDEN,
                     )
+                
                 user = UserProfile.objects.get(
                     pk=tag["userprofile_id"], branch__branch_code=branch_code
                 )
                 added_by = request.user.profile
+
                 if request.user.is_staff or request.user.is_superuser:
                     loc.locked = True
                     loc.save()
+                    
                 loc.tag = user
                 loc.added_by = added_by
                 loc.save()

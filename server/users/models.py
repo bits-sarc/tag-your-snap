@@ -20,21 +20,21 @@ class UserProfile(models.Model):
 class Location(models.Model):
     x = models.FloatField()
     y = models.FloatField()
-    row = models.SmallIntegerField("Row Number", blank=True, null=True, default=None)
+    row = models.SmallIntegerField("Row Number", blank=False, null=False, default=0)
     branch = models.ForeignKey(
         Branch, related_name="locations", on_delete=models.CASCADE
     )
     tag = models.ForeignKey(
         UserProfile,
         related_name="tag",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
     added_by = models.ForeignKey(
         UserProfile,
         related_name="added_by",
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
