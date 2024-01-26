@@ -235,7 +235,7 @@ class SnapDetailView(APIView):
                     user.is_prof
                     and user.tag
                     in Location.objects.filter(
-                        branch=Branch.objects.get(branch_code=branch_code).first()
+                        branch=Branch.objects.filter(branch_code=branch_code).first()
                     )
                 ):
                     return Response(
