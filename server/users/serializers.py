@@ -9,7 +9,7 @@ class StudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = ["id", "name"]
+        fields = ["id", "name", "bits_id"]
 
 
 class LocationSerializer(serializers.ModelSerializer):
