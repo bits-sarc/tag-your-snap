@@ -27,7 +27,7 @@ class GoogleView(APIView):
             }
             return Response(content, status=status.HTTP_400_BAD_REQUEST)
 
-        # we don't want create any new users!!!
+        # we don't want to create any new users!!!
         try:
             user = User.objects.get(email=data["email"])
         except User.DoesNotExist:
