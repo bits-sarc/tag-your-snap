@@ -145,7 +145,7 @@ export default function TagSnap() {
               <img id="snap-image-anchor" src={snapData != undefined ? ("http://localhost:1337" + snapData.snap_image) : undefined} alt="Batch Snap Image" />
             </div>
             <div className="flex flex-col justify-around gap-4 mt-10 text-2xl">
-              {selectedUserId !== previousUserId && (
+              {selectedUserId !== previousUserId && selectedUserId != undefined && (
                 <>
                   <div className="font-gilmer-bold text-center w-full">Are you sure you want to tag the selected face as <br /> {getUserData(selectedUserId)?.name} : {getUserData(selectedUserId)?.bits_id}</div>
                   <div className="flex flex-row gap-8 px-16">
@@ -179,11 +179,13 @@ export default function TagSnap() {
               </div>
             </div>
             <div className={"transition-max-height ease-in-out flex flex-col items-center gap-2 mt-4"} style={{ zIndex: !collapseStudents ? "-1" : "1", maxHeight: !collapseStudents ? 0 : "30rem", overflowY: "hidden", overflowX: "unset" }}>
-              {snapData.students.map((student) => {
+              {selectedFace ? snapData.students.map((student) => {
                 return (
                   <UIButton key={student.id} onClick={() => setSelectedUserId(student.id)} text={student.name} active={selectedUserId == student.id} />
                 )
-              })}
+              }) : (
+                <div className="font-gilmer-bold text-xl text-neutral-400">Please select a face</div>
+              )}
             </div>
           </div>
         </div>
