@@ -266,13 +266,3 @@ class SnapDetailView(APIView):
                 {"error": True, "message": e.message},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
-
-
-class SendEmail(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request):
-        pass
-
-    def post(self, request):
-        pass
