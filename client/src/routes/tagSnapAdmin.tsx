@@ -5,6 +5,7 @@ import { LoaderFunctionArgs, useLoaderData, useNavigate } from "react-router-dom
 import UIButton from '../components/UIButton';
 import LocationPoint from '../components/LocationPoint';
 import { BranchDetail, LocationData } from '../types/api';
+import backButtonSvg from '/backButton.svg';
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const branchCode = params.branchCode;
@@ -75,7 +76,7 @@ export default function TagSnapAdmin() {
       x: percentX,
       y: percentY,
       row: currentRow,
-      user: null,
+      tag: null,
     }
 
     setFakeId(fakeId + 1);
@@ -105,14 +106,12 @@ export default function TagSnapAdmin() {
     console.log(json);
   }
 
-  // console.log(snapData);
-
   return (
-    <div className="container m-auto h-screen">
+    <div className="container m-auto">
       <div className="flex flex-col">
         <div className="flex flex-row justify-center">
-          <div className="text-5xl font-gilmer-bold px-8">{"<"}</div>
-          <div className="text-5xl font-gilmer-bold">{snapData.branch_code} {snapData.branch_name}</div>
+          <div className="text-5xl font-gilmer-bold px-8"><img src={backButtonSvg} alt="back" /></div>
+          <div className="text-5xl font-gilmer-bold -translate-y-1/4">{snapData.branch_code} {snapData.branch_name}</div>
         </div>
 
         <div className="flex flex-row mt-10 gap-10">
@@ -121,13 +120,16 @@ export default function TagSnapAdmin() {
               {locations.map((location) => (<LocationPoint key={location.fakeId} id={location.fakeId} location={location} currentRow={currentRow} onClick={(e: React.MouseEvent<HTMLElement>) => deletePoint(e)} />))}
               <img id="snap-image-anchor" src={snapData != undefined ? ("http://localhost:1337" + snapData.snap_image) : undefined} alt="Batch Snap Image" onClick={(e: React.MouseEvent<HTMLElement>) => addPoint(e)} />
             </div>
+            <div className="flex flex-row justify-around gap-4 px-32 mt-8">
+              <UIButton onClick={() => navigate(0)} text={"Reset"} />
+              <UIButton onClick={() => saveLocations()} text={"Save"} />
+            </div>
           </div>
           <div className="basis-4/12 flex flex-col">
             <div className="text-3xl font-gilmer-bold flex flex-row justify-between">
               <div>Choose a Row:</div>
-              <div>+</div>
             </div>
-            <div>
+            <div className="flex flex-col gap-2 mt-4">
               {[...Array(maxRow + 1).keys()].map((row: number, index: number) => {
                 if (index == 0) return (<UIButton key={row} onClick={() => setCurrentRow(row)} text={"Sitting Row 1"} active={currentRow == row} />)
                 return (<UIButton key={row} onClick={() => setCurrentRow(row)} text={"Standing Row " + String(row + 1)} active={currentRow == row} />)
@@ -137,21 +139,7 @@ export default function TagSnapAdmin() {
             <div className="text-3xl font-gilmer-bold flex flex-row justify-between mt-4">
               <div>Mark a face in the Snap</div>
             </div>
-            <div className="text-3xl font-gilmer-bold flex flex-row justify-between mt-4">
-              <div>Tag your Name:</div>
-              <div>+</div>
-            </div>
-            <div>
-              <UIButton onClick={() => alert("masti")} text={"Himanshu Kumar"} />
-              <UIButton onClick={() => alert("masti")} text={"Himanshu Kumar"} />
-              <UIButton onClick={() => alert("masti")} text={"Himanshu Kumar"} />
-            </div>
           </div>
-        </div>
-
-        <div className="flex flex-row justify-around gap-4">
-          <UIButton onClick={() => alert("masti")} text={"Mark as Done"} />
-          <UIButton onClick={() => saveLocations()} text={"Save"} />
         </div>
       </div>
     </div>

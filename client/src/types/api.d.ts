@@ -16,7 +16,7 @@ export interface LocationData {
     x: number;
     y: number;
     row: number;
-    user: Student | null;
+    tag: Student | null;
 }
 
 export interface BranchDetail extends Branch {

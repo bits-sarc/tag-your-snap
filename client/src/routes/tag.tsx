@@ -43,7 +43,7 @@ export default function Tag() {
 
   return (
     <div className="container m-auto">
-      <div className="w-full h-screen bg-dark flex flex-row mt-5">
+      <div className="w-full bg-dark flex flex-row mt-5">
         <div className="flex flex-col w-full px-8">
           <div className="font-gilmer-bold text-5xl text-center">Select Branch</div>
           <div className="flex flex-row justify-around mt-12">
