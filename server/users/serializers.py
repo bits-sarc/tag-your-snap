@@ -13,8 +13,9 @@ class StudentSerializer(serializers.ModelSerializer):
 
 
 class LocationSerializer(serializers.ModelSerializer):
-    user = StudentSerializer()
+    tag = StudentSerializer()
+    added_by = StudentSerializer()
 
     class Meta:
         model = Location
-        fields = ["id", "x", "y", "user"]
+        fields = ["id", "x", "y", "tag", "added_by", "locked"]

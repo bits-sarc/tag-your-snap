@@ -11,9 +11,6 @@ class UserProfile(models.Model):
         Branch, related_name="students", on_delete=models.PROTECT
     )
     is_prof = models.BooleanField("Is User Professor?", default=False)
-    location = models.OneToOneField(
-        "Location", related_name="user", on_delete=models.SET_NULL, null=True, blank=True
-    )
 
     class Meta:
         verbose_name = "User Profile"
@@ -24,4 +21,21 @@ class Location(models.Model):
     x = models.FloatField()
     y = models.FloatField()
     row = models.SmallIntegerField("Row Number", blank=True, null=True, default=None)
-    branch = models.ForeignKey(Branch, related_name="locations", on_delete=models.CASCADE)
+    branch = models.ForeignKey(
+        Branch, related_name="locations", on_delete=models.CASCADE
+    )
+    tag = models.ForeignKey(
+        UserProfile,
+        related_name="tag",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+    added_by = models.ForeignKey(
+        UserProfile,
+        related_name="added_by",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+    locked = models.BooleanField(default=False)

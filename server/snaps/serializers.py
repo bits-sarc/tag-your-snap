@@ -6,7 +6,7 @@ from users.serializers import LocationSerializer, StudentSerializer
 class BranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Branch
-        fields = ["branch_name", "branch_code", "snap_image"]
+        fields = ["branch_name", "branch_code", "snap_image", "is_done"]
 
 
 class BranchDetailsSerializer(BranchSerializer):
