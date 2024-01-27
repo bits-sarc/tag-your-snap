@@ -13,6 +13,7 @@ export interface Student {
 export interface LocationData {
     fakeId?: number;
     id?: number;
+    locked: boolean;
     x: number;
     y: number;
     row: number;
