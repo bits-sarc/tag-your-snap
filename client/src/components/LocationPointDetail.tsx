@@ -7,7 +7,7 @@ export default function LocationPointDetail({ location, id, onClick }: { locatio
   const color = location.tag == undefined ? "#907e1c" : "#EF5D60"
 
   return (
-    <div className="absolute item-hints font-gilmer-bold" style={{ left: `${percentX}%`, top: `${percentY}%` }}>
+    <div className="absolute item-hints font-gilmer-bold" style={{ left: `${percentX}%`, top: `${percentY}%`, zIndex: 100 }}>
       <div id={`hint-${location.id}`} className="relative hint" data-position="4">
         <div id={id} className={"p-1 border border-neutral-100 rounded-full font-gilmer-bold -translate-x-1/2 -translate-y-1/2 float-left hover:scale-125"} style={{ backgroundColor: color }} onClick={(e) => onClick(e)}></div>
         <div className="hint-content do--split-children flex flex-row justify-around px-3 gap-2">

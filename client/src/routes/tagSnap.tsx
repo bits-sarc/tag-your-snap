@@ -7,6 +7,7 @@ import UIButton from '../components/UIButton';
 import LocationPointDetail from '../components/LocationPointDetail';
 import { BranchDetail, LocationData, Student } from '../types/api';
 import backButtonSvg from '/backButton.svg';
+import Magnifier from 'react-magnifier';
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const branchCode = params.branchCode;
@@ -146,7 +147,8 @@ export default function TagSnap() {
           <div className="basis-9/12">
             <div className="relative">
               {locations.map((location) => (<LocationPointDetail key={location.id} id={location.id} location={location} onClick={(e: React.MouseEvent<HTMLElement>) => selectFace(e)} />))}
-              <img id="snap-image-anchor" src={snapData != undefined ? ("http://localhost:1337" + snapData.snap_image) : undefined} alt="Batch Snap Image" />
+              {/* @ts-ignore */}
+              <Magnifier src={snapData != undefined ? ("http://localhost:1337" + snapData.snap_image) : ""} width="100%" mgWidth={150} mgHeight={150} zoomFactor={2} mgMouseOffsetY={-120} />
             </div>
             <div className="flex flex-col justify-around gap-4 my-10 text-2xl">
               {selectedUserId !== previousUserId && selectedUserId != undefined && (
