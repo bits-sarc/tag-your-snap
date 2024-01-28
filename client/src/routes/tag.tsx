@@ -42,8 +42,8 @@ export default function Tag() {
   // Mark the branch as done
 
   return (
-    <div className="container m-auto">
-      <div className="w-full bg-dark flex flex-row">
+    <div className="m-auto pt-48 overflow-x-scroll overflow-y-visible px-8 md:px-16 lg:px-24 xl:32">
+      <div className="w-full bg-dark flex flex-row min-w-[1200px]">
         <div className="flex flex-col w-full px-8 basis-8/12">
           <div className="font-gilmer-bold text-5xl text-center">Select Branch</div>
           <div className="flex flex-row justify-around mt-12">

@@ -5,7 +5,7 @@ export default function Root() {
   return (
     <div className='bg-black text-white relative'>
       <NavBar />
-      <div className="pt-48 min-h-screen">
+      <div className="min-h-screen">
         <Outlet />
       </div>
     </div>

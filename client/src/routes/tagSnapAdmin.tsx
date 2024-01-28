@@ -108,8 +108,8 @@ export default function TagSnapAdmin() {
   }
 
   return (
-    <div className="container m-auto">
-      <div className="flex flex-col">
+    <div className="m-auto pt-48 overflow-x-scroll overflow-y-visible px-8 md:px-16 lg:px-24 xl:32">
+      <div className="flex flex-col min-w-[1200px]">
         <div className="flex flex-row justify-center">
           <div className="text-5xl font-gilmer-bold px-8" onClick={() => navigate(-1)}><img src={backButtonSvg} alt="back" /></div>
           <div className="text-5xl font-gilmer-bold -translate-y-1/4">{snapData.branch_code} {snapData.branch_name}</div>
