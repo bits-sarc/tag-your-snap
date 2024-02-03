@@ -239,19 +239,10 @@ class SnapDetailView(APIView):
                         branch=Branch.objects.filter(branch_code=branch_code).first()
                     )
                 ):
-                    return Response(
-                        {
-                            "error": True,
-                            "message": "User has already been tagged. Please contact the admin for the same",
-                        },
-                        status=status.HTTP_403_FORBIDDEN,
-                    )
-
-                # if Location.objects.filter(tag=user, branch=branch_code):
-                #     tag = Location.objects.filter(tag=user, branch=branch_code).first()
-                #     tag.tag = None
-                #     tag.added_by = None
-                #     tag.save()
+                    tag = Location.objects.filter(tag=user, branch=branch_code).first()
+                    tag.tag = None
+                    tag.added_by = None
+                    tag.save()
 
                 if (
                     request.user.is_staff
