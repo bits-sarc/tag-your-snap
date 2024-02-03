@@ -229,16 +229,30 @@ class SnapDetailView(APIView):
                 user = UserProfile.objects.get(
                     pk=tag["userprofile_id"], branch__branch_code=branch_code
                 )
+
                 added_by = request.user.profile
 
-                if user.tag.count() > 0 or (user.is_prof and user.tag in Location.objects.filter(
+                if user.tag.count() > 0 or (
+                    user.is_prof
+                    and user.tag
+                    in Location.objects.filter(
                         branch=Branch.objects.filter(branch_code=branch_code).first()
                     )
                 ):
                     return Response(
-                        {"error": True, "message": "User has already been tagged"},
+                        {
+                            "error": True,
+                            "message": "User has already been tagged. Please contact the admin for the same",
+                        },
                         status=status.HTTP_403_FORBIDDEN,
                     )
+
+                # if Location.objects.filter(tag=user, branch=branch_code):
+                #     tag = Location.objects.filter(tag=user, branch=branch_code).first()
+                #     tag.tag = None
+                #     tag.added_by = None
+                #     tag.save()
+
                 if (
                     request.user.is_staff
                     or request.user.is_superuser
@@ -251,16 +265,14 @@ class SnapDetailView(APIView):
                 loc.added_by = added_by
                 loc.save()
                 user.save()
-
+                new_taggings = LocationSerializer(
+                    Location.objects.filter(branch__branch_code=branch_code), many=True
+                )
             # subject = "Confirm your batch snaps tag"
             # from_email = "Student Alumni Relations Cell <alumnicell@bits-sarc.in>"
             # to_emails = (user.user.email,)
             # html_message = render_to_string("users/send_confirmation.html")
             # plain_message = strip_tags(html_message)
-
-            new_taggings = LocationSerializer(
-                Location.objects.filter(branch__branch_code=branch_code), many=True
-            )
             # try:
             #     send_mail(
             #         subject,
