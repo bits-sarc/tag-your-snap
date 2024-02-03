@@ -77,6 +77,7 @@ export default function TagSnapAdmin() {
       y: percentY,
       row: currentRow,
       tag: null,
+      locked: false,
     }
 
     setFakeId(fakeId + 1);
@@ -107,37 +108,40 @@ export default function TagSnapAdmin() {
   }
 
   return (
-    <div className="container m-auto">
-      <div className="flex flex-col">
+    <div className="m-auto pt-48 overflow-x-scroll overflow-y-visible px-8 md:px-16 lg:px-24 xl:32">
+      <div className="flex flex-col min-w-[1200px]">
         <div className="flex flex-row justify-center">
-          <div className="text-5xl font-gilmer-bold px-8"><img src={backButtonSvg} alt="back" /></div>
+          <div className="text-5xl font-gilmer-bold px-8" onClick={() => navigate(-1)}><img src={backButtonSvg} alt="back" /></div>
           <div className="text-5xl font-gilmer-bold -translate-y-1/4">{snapData.branch_code} {snapData.branch_name}</div>
         </div>
 
         <div className="flex flex-row mt-10 gap-10">
-          <div className="basis-8/12">
+          <div className="basis-9/12">
             <div className="relative">
               {locations.map((location) => (<LocationPoint key={location.fakeId} id={location.fakeId} location={location} currentRow={currentRow} onClick={(e: React.MouseEvent<HTMLElement>) => deletePoint(e)} />))}
               <img id="snap-image-anchor" src={snapData != undefined ? ("http://localhost:1337" + snapData.snap_image) : undefined} alt="Batch Snap Image" onClick={(e: React.MouseEvent<HTMLElement>) => addPoint(e)} />
             </div>
-            <div className="flex flex-row justify-around gap-4 px-32 mt-8">
+            <div className="flex flex-row justify-around gap-4 px-32 mt-8 mb-10">
               <UIButton onClick={() => navigate(0)} text={"Reset"} />
               <UIButton onClick={() => saveLocations()} text={"Save"} />
             </div>
           </div>
-          <div className="basis-4/12 flex flex-col">
+          <div className="basis-3/12 flex flex-col">
             <div className="text-3xl font-gilmer-bold flex flex-row justify-between">
               <div>Choose a Row:</div>
             </div>
             <div className="flex flex-col gap-2 mt-4">
               {[...Array(maxRow + 1).keys()].map((row: number, index: number) => {
                 if (index == 0) return (<UIButton key={row} onClick={() => setCurrentRow(row)} text={"Sitting Row 1"} active={currentRow == row} />)
-                return (<UIButton key={row} onClick={() => setCurrentRow(row)} text={"Standing Row " + String(row + 1)} active={currentRow == row} />)
+                return (<UIButton key={row} onClick={() => setCurrentRow(row)} text={"Standing Row " + String(row)} active={currentRow == row} />)
               })}
               <UIButton onClick={() => setMaxRow(maxRow + 1)} text={"+ Add Row"} />
             </div>
             <div className="text-3xl font-gilmer-bold flex flex-row justify-between mt-4">
               <div>Mark a face in the Snap</div>
+            </div>
+            <div className="text-3xl font-gilmer-bold flex flex-row justify-between mt-4">
+              <div className="w-full pt-2">Next Step:</div> <UIButton onClick={() => navigate(`/tag/${snapData.branch_code}`)} text={"Go"} />
             </div>
           </div>
         </div>

@@ -140,17 +140,17 @@ class SnapDetailView(APIView):
                     db_loc.y = loc["y"]
                     db_loc.row = loc["row"]
                     try:
-                        if loc["user"] and (
-                            request.user.is_staff or request.user.is_superuser
-                        ):
-                            db_loc.added_by = request.user.profile
-                            db_loc.locked = True
-                            profile = UserProfile.objects.get(id=loc["user"]["id"])
-                            db_loc.tag = profile
-                            db_loc.save()
-                            profile.save()
-                        else:
-                            db_loc.save()
+                        # if loc["user"] and (
+                        #     request.user.is_staff or request.user.is_superuser
+                        # ):
+                        #     db_loc.added_by = request.user.profile
+                        #     db_loc.locked = True
+                        #     profile = UserProfile.objects.get(id=loc["user"]["id"])
+                        #     db_loc.tag = profile
+                        #     db_loc.save()
+                        #     profile.save()
+                        # else:
+                        db_loc.save()
                     except Exception as e:
                         return Response(
                             {"error": True, "message": e.message},
@@ -164,17 +164,17 @@ class SnapDetailView(APIView):
                     new = Location.objects.create(
                         x=loc["x"], y=loc["y"], row=loc["row"], branch=branch
                     )
-                    if loc["user"] and (
-                        request.user.is_staff or request.user.is_superuser
-                    ):
-                        new.added_by = request.user.profile
-                        new.locked = True
-                        profile = UserProfile.objects.get(id=loc["user"]["id"])
-                        new.tag = profile
-                        profile.save()
-                        new.save()
-                    else:
-                        new.save()
+                    # if loc["user"] and (
+                    #     request.user.is_staff or request.user.is_superuser
+                    # ):
+                    #     new.added_by = request.user.profile
+                    #     new.locked = True
+                    #     profile = UserProfile.objects.get(id=loc["user"]["id"])
+                    #     new.tag = profile
+                    #     profile.save()
+                    #     new.save()
+                    # else:
+                    new.save()
                     ids.append(new.id)
 
             Location.objects.filter(branch__branch_code=branch_code).exclude(
@@ -231,10 +231,7 @@ class SnapDetailView(APIView):
                 )
                 added_by = request.user.profile
 
-                if user.tag in Location.objects.all() or (
-                    user.is_prof
-                    and user.tag
-                    in Location.objects.filter(
+                if user.tag.count() > 0 or (user.is_prof and user.tag in Location.objects.filter(
                         branch=Branch.objects.filter(branch_code=branch_code).first()
                     )
                 ):

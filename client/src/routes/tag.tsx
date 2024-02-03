@@ -42,9 +42,9 @@ export default function Tag() {
   // Mark the branch as done
 
   return (
-    <div className="container m-auto">
-      <div className="w-full bg-dark flex flex-row mt-5">
-        <div className="flex flex-col w-full px-8">
+    <div className="m-auto pt-48 overflow-x-scroll overflow-y-visible px-8 md:px-16 lg:px-24 xl:32">
+      <div className="w-full bg-dark flex flex-row min-w-[1200px]">
+        <div className="flex flex-col w-full px-8 basis-8/12">
           <div className="font-gilmer-bold text-5xl text-center">Select Branch</div>
           <div className="flex flex-row justify-around mt-12">
             <img src={currentBranch != undefined ? ("http://localhost:1337" + currentBranch.snap_image) : undefined} alt="Batch Snap Image" />
@@ -52,12 +52,12 @@ export default function Tag() {
           <div style={{ fontSize: "30px" }} className="mt-10 text-center font-gilmer-bold">
             {currentBranch != undefined && (currentBranch.branch_code + " " + currentBranch.branch_name)}
           </div>
-          <div className="flex flex-row justify-items-stretch mt-4">
+          <div className="flex flex-row gap-4 justify-items-stretch mt-4 mb-10">
             <UIButton onClick={(e: MouseEventHandler) => console.log(e)} text="Mark as Done" />
             <UIButton onClick={() => navigate(`/admin/tag/${currentBranch != undefined && currentBranch.branch_code}`)} text="Start" />
           </div>
         </div>
-        <div className="flex flex-col w-full px-8">
+        <div className="flex flex-col w-full px-8 basis-4/12">
           {branches.map((branch) => {
             return (
               <div onClick={() => setCurrentBranch(branch)} style={{ fontSize: "28px" }} className={"cursor-pointer mt-4 p-2 text-center border-4 rounded-lg border-neutral-600 font-gilmer-medium " + ((currentBranch && currentBranch.branch_code == branch.branch_code) ? "bg-neutral-300/50" : "bg-neutral-100/20")} key={branch.branch_code}>
