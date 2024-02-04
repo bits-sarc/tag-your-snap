@@ -6,6 +6,7 @@ import UIButton from '../components/UIButton';
 import LocationPoint from '../components/LocationPoint';
 import { BranchDetail, LocationData } from '../types/api';
 import backButtonSvg from '/backButton.svg';
+import toast from 'react-hot-toast';
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const branchCode = params.branchCode;
@@ -93,6 +94,7 @@ export default function TagSnapAdmin() {
 
   const saveLocations = async () => {
     const url = `https://snaps-api.bits-sarc.in/snaps/${snapData.branch_code}/`;
+    toast("Saving Locations...");
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -104,7 +106,12 @@ export default function TagSnapAdmin() {
 
     const json = await response.json();
 
-    console.log(json);
+    if (!json.error) {
+      toast("Locations updated!");
+      return;
+    }
+
+    toast("Failed to save locations!");
   }
 
   return (

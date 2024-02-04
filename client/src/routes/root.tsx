@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import NavBar from '../components/NavBar';
+import { Toaster } from 'react-hot-toast';
 
 export default function Root() {
   return (
@@ -8,6 +9,7 @@ export default function Root() {
       <div className="min-h-screen">
         <Outlet />
       </div>
+      <Toaster position="bottom-center" gutter={8} toastOptions={{ style: { background: "#363636", color: "#fff" } }} />
     </div>
   );
 }
