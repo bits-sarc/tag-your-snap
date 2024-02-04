@@ -221,7 +221,7 @@ class SnapDetailView(APIView):
                     return Response(
                         {
                             "error": True,
-                            "message": f"The location:{loc.locked} cannot be edited",
+                            "message": f"The location is locked and cannot be edited",
                         },
                         status=status.HTTP_403_FORBIDDEN,
                     )
@@ -239,10 +239,11 @@ class SnapDetailView(APIView):
                         branch=Branch.objects.filter(branch_code=branch_code).first()
                     )
                 ):
-                    tag = Location.objects.filter(tag=user, branch=branch_code).first()
-                    tag.tag = None
-                    tag.added_by = None
-                    tag.save()
+                    tag = Location.objects.filter(tag=user, branch=branch_code)
+                    for i in tag:
+                        i.tag = None
+                        i.added_by = None
+                        i.save()
 
                 if (
                     request.user.is_staff
