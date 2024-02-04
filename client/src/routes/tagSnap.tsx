@@ -12,7 +12,7 @@ import Magnifier from 'react-magnifier';
 export async function loader({ params }: LoaderFunctionArgs) {
   const branchCode = params.branchCode;
 
-  const url = `http://localhost:1337/snaps/${branchCode}`;
+  const url = `https://snaps-api.bits-sarc.in/snaps/${branchCode}`;
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -106,7 +106,7 @@ export default function TagSnap() {
       userprofile_id: selectedUserId,
     }]
 
-    const url = `http://localhost:1337/snaps/${snapData.branch_code}/`;
+    const url = `https://snaps-api.bits-sarc.in/snaps/${snapData.branch_code}/`;
     const response = await fetch(url, {
       method: "PUT",
       headers: {
@@ -148,7 +148,7 @@ export default function TagSnap() {
             <div className="relative">
               {locations.map((location) => (<LocationPointDetail key={location.id} id={location.id} location={location} onClick={(e: React.MouseEvent<HTMLElement>) => selectFace(e)} />))}
               {/* @ts-ignore */}
-              <Magnifier src={snapData != undefined ? ("http://localhost:1337" + snapData.snap_image) : ""} width="100%" mgWidth={150} mgHeight={150} zoomFactor={2} mgMouseOffsetY={-120} />
+              <Magnifier src={snapData != undefined ? ("https://snaps-api.bits-sarc.in" + snapData.snap_image) : ""} width="100%" mgWidth={150} mgHeight={150} zoomFactor={2} mgMouseOffsetY={-120} />
             </div>
             <div className="flex flex-col justify-around gap-4 my-10 text-2xl">
               {selectedUserId !== previousUserId && selectedUserId != undefined && (

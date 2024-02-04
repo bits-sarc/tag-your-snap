@@ -10,7 +10,7 @@ import backButtonSvg from '/backButton.svg';
 export async function loader({ params }: LoaderFunctionArgs) {
   const branchCode = params.branchCode;
 
-  const url = `http://localhost:1337/snaps/${branchCode}`;
+  const url = `https://snaps-api.bits-sarc.in/snaps/${branchCode}`;
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -92,7 +92,7 @@ export default function TagSnapAdmin() {
   }
 
   const saveLocations = async () => {
-    const url = `http://localhost:1337/snaps/${snapData.branch_code}/`;
+    const url = `https://snaps-api.bits-sarc.in/snaps/${snapData.branch_code}/`;
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -119,7 +119,7 @@ export default function TagSnapAdmin() {
           <div className="basis-9/12">
             <div className="relative">
               {locations.map((location) => (<LocationPoint key={location.fakeId} id={location.fakeId} location={location} currentRow={currentRow} onClick={(e: React.MouseEvent<HTMLElement>) => deletePoint(e)} />))}
-              <img id="snap-image-anchor" src={snapData != undefined ? ("http://localhost:1337" + snapData.snap_image) : undefined} alt="Batch Snap Image" onClick={(e: React.MouseEvent<HTMLElement>) => addPoint(e)} />
+              <img id="snap-image-anchor" src={snapData != undefined ? ("https://snaps-api.bits-sarc.in" + snapData.snap_image) : undefined} alt="Batch Snap Image" onClick={(e: React.MouseEvent<HTMLElement>) => addPoint(e)} />
             </div>
             <div className="flex flex-row justify-around gap-4 px-32 mt-8 mb-10">
               <UIButton onClick={() => navigate(0)} text={"Reset"} />

@@ -5,7 +5,7 @@ import UIButton from '../components/UIButton';
 import { Branch } from '../types/api';
 
 export async function loader(): Promise<{ branches: Branch[] }> {
-  const url = "http://localhost:1337/snaps/";
+  const url = "https://snaps-api.bits-sarc.in/snaps/";
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -47,7 +47,7 @@ export default function Tag() {
         <div className="flex flex-col w-full px-8 basis-8/12">
           <div className="font-gilmer-bold text-5xl text-center">Select Branch</div>
           <div className="flex flex-row justify-around mt-12">
-            <img src={currentBranch != undefined ? ("http://localhost:1337" + currentBranch.snap_image) : undefined} alt="Batch Snap Image" />
+            <img src={currentBranch != undefined ? ("https://snaps-api.bits-sarc.in" + currentBranch.snap_image) : undefined} alt="Batch Snap Image" />
           </div>
           <div style={{ fontSize: "30px" }} className="mt-10 text-center font-gilmer-bold">
             {currentBranch != undefined && (currentBranch.branch_code + " " + currentBranch.branch_name)}
