@@ -15,7 +15,7 @@ export default function NavBar() {
 
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      const url = "http://localhost:1337/users/google/";
+      const url = "https://snaps-api.bits-sarc.in/users/google/";
       const data = {
         token: tokenResponse.access_token,
       }
