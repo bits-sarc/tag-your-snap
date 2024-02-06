@@ -28,11 +28,11 @@ def populate_bitsians():
                 branch_name = f"BX{bits_id[6:8]}"
             else:
                 continue
-        username = ws.cell(row=i, column=2)
+        username = ws.cell(row=i, column=2).value
         email = f"{prefix}{bits_id[:4]}{bits_id[len(bits_id)-4:len(bits_id)]}@pilani.bits-pilani.ac.in"
         try:
             user = create_bitsian(
-                username=username,
+                username=f"{prefix}{bits_id[:4]}{bits_id[len(bits_id)-4:len(bits_id)]}",
                 email=email,
                 bits_id=bits_id,
                 name=username,
