@@ -27,11 +27,18 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1", "20.68.16.151"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "0.0.0.0",
+    "127.0.0.1",
+    "20.68.16.151",
+    "snaps-api.bits-sarc.in",
+]
 CSRF_TRUSTED_ORIGINS = [
     "https://20.68.16.151",
     "http://127.0.0.1:1337",
     "http://localhost:1337",
+    "https://snaps-api.bits-sarc.in",
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 
