@@ -24,11 +24,15 @@ def populate_bitsians():
             prefix = "f"
             if bits_id[:4] == "2021":
                 branch_name = bits_id[4:6]
-            elif bits_id[:4] == "2020" and bits_id[4] == "B":
+            elif (
+                bits_id[:4] == "2020"
+                and (bits_id[4] == "B")
+                and (bits_id[6] != "P" or bits_id[6] != "T")
+            ):
                 branch_name = f"BX{bits_id[6:8]}"
             else:
                 continue
-        username = ws.cell(row=i, column=2).value
+        username = ws.cell(row=i, column=3).value
         email = f"{prefix}{bits_id[:4]}{bits_id[len(bits_id)-4:len(bits_id)]}@pilani.bits-pilani.ac.in"
         try:
             user = create_bitsian(
