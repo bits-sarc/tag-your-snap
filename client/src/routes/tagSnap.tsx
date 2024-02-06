@@ -8,6 +8,7 @@ import LocationPointDetail from '../components/LocationPointDetail';
 import { BranchDetail, LocationData, Student } from '../types/api';
 import backButtonSvg from '/backButton.svg';
 import Magnifier from 'react-magnifier';
+import toast from 'react-hot-toast';
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const branchCode = params.branchCode;
@@ -107,6 +108,7 @@ export default function TagSnap() {
     }]
 
     const url = `https://snaps-api.bits-sarc.in/snaps/${snapData.branch_code}/`;
+    toast("Saving...");
     const response = await fetch(url, {
       method: "PUT",
       headers: {
@@ -123,7 +125,12 @@ export default function TagSnap() {
       setLocations(json.data);
       setPreviousUserId(selectedUserId);
       setSelectedUserId(selectedUserId);
+
+      toast("Updated tag!");
+      return
     }
+
+    toast("Failed to updated locations!");
   }
 
   const getUserData = (id: number | undefined) => {
