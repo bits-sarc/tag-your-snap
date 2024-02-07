@@ -179,15 +179,19 @@ export default function TagSnap() {
                 <div className="-translate-y-1">{!collapseStudents ? "+" : "-"}</div>
               </div>
             </div>
-            <div className={"transition-max-height ease-in-out flex flex-col items-center gap-2 mt-4"} style={{ zIndex: !collapseStudents ? "-1" : "1", maxHeight: !collapseStudents ? 0 : "30rem", overflowY: "hidden", overflowX: "unset" }}>
+            <div className={"transition-max-height ease-in-out flex flex-col items-center gap-2 mt-4"} style={{ zIndex: !collapseStudents ? "-1" : "1", maxHeight: !collapseStudents ? 0 : "600px", overflowY: "hidden", overflowX: "unset" }}>
               <input type="text" className="bg-transparent border-b-2 border-neutral-500 w-11/12 px-3 py-1 mb-2 font-gilmer-bold focus:border-neutral-100 outline-0" placeholder="Search" onChange={(e) => filterStudents(e.target.value)} />
-              {selectedFace ? filteredStudents.map((student) => {
-                return (
-                  <UIButton key={student.id} onClick={() => setSelectedUserId(student.id)} text={student.name} active={selectedUserId == student.id} />
-                )
-              }) : (
-                <div className="font-gilmer-bold text-xl text-neutral-400">Please select a face</div>
-              )}
+              <div className="overflow-y-scroll">
+                {selectedFace ? filteredStudents.map((student) => {
+                  return (
+                    <div className="mt-2 mr-2">
+                      <UIButton key={student.id} onClick={() => setSelectedUserId(student.id)} text={student.name} active={selectedUserId == student.id} />
+                    </div>
+                  )
+                }) : (
+                  <div className="font-gilmer-bold text-xl text-neutral-400">Please select a face</div>
+                )}
+              </div>
             </div>
           </div>
         </div>
