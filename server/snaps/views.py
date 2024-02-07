@@ -15,7 +15,6 @@ from django.utils.html import strip_tags
 
 class SnapView(APIView):
     permission_classes = [IsAdminUser]
-    parser_classes = (MultiPartParser, FormParser)
 
     def post(self, request, format=None, *args, **kwargs):
         try:
