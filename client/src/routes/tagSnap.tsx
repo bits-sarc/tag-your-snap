@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import { useDebouncedCallback } from 'use-debounce';
 import React, { useState, useEffect } from 'react';
-import { LoaderFunctionArgs, useLoaderData, useNavigate } from "react-router-dom"
+import { LoaderFunctionArgs, useLoaderData, useNavigate, useParams } from "react-router-dom"
 import UIButton from '../components/UIButton';
 import LocationPointDetail from '../components/LocationPointDetail';
 import { BranchDetail, LocationData, Student } from '../types/api';
@@ -29,6 +29,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export default function TagSnap() {
   const { snapData } = useLoaderData() as { snapData: BranchDetail };
+  const { branchCode } = useParams();
   const navigate = useNavigate();
 
   const [auth, setAuth] = useState<boolean>(false);
@@ -53,7 +54,7 @@ export default function TagSnap() {
     }
 
     const decoded = jwtDecode(Cookies.get('jwt') as string) as JwtPayload & { branch: string };
-    if (decoded.branch !== undefined) navigate("/");
+    if (decoded.branch !== undefined && decoded.branch !== branchCode) navigate("/");
 
     for (let i = 0; i < snapData.locations.length; i++) {
       const location = snapData.locations[i];
