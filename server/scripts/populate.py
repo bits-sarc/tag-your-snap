@@ -24,11 +24,9 @@ def populate_bitsians():
             prefix = "f"
             if bits_id[:4] == "2021":
                 branch_name = bits_id[4:6]
-            elif (
-                bits_id[:4] == "2020"
-                and (bits_id[4] == "B")
-                and (bits_id[6] != "P" or bits_id[6] != "T")
-            ):
+            elif bits_id[:4] == "2020" and (bits_id[4] == "B"):
+                if bits_id[6] == "P" or bits_id[6] == "T":
+                    continue
                 branch_name = f"BX{bits_id[6:8]}"
             else:
                 continue
