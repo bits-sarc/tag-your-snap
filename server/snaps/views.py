@@ -50,7 +50,7 @@ class SnapView(APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
-    def put(self, request):
+    def put(self, request, format=None):
         try:
             branch_code = request.data["branch_code"]
             if not Branch.objects.filter(branch_code=branch_code).exists():
