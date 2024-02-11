@@ -215,22 +215,21 @@ class SnapDetailView(APIView):
 
             for tag in new_taggings:
                 loc = Location.objects.get(pk=tag["id"])
-                if loc.locked and not (
-                    request.user.is_staff or request.user.is_superuser
-                ):
-                    return Response(
-                        {
-                            "error": True,
-                            "message": f"The location is locked and cannot be edited",
-                        },
-                        status=status.HTTP_403_FORBIDDEN,
-                    )
-
                 user = UserProfile.objects.get(
                     pk=tag["userprofile_id"], branch__branch_code=branch_code
                 )
-
                 added_by = request.user.profile
+                if user != added_by:
+                    if loc.locked and not (
+                        request.user.is_staff or request.user.is_superuser
+                    ):
+                        return Response(
+                            {
+                                "error": True,
+                                "message": f"The location is locked and cannot be edited",
+                            },
+                            status=status.HTTP_403_FORBIDDEN,
+                        )
 
                 if user.tag.count() > 0 or (
                     user.is_prof
