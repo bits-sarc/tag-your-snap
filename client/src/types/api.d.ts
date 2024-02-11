@@ -2,6 +2,7 @@ export interface Branch {
     branch_code: string;
     branch_name: string;
     snap_image: string;
+    is_done?: boolean;
 }
 
 export interface Student {
