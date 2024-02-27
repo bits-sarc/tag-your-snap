@@ -1,12 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import FancyButton from './FancyButton';
 import { useGoogleLogin } from '@react-oauth/google';
+import { jwtDecode, JwtPayload } from "jwt-decode";
 import Cookies from 'js-cookie';
 import { useState } from 'react';
 
 export default function NavBar() {
   const [auth, setAuth] = useState<boolean>(false);
   const [navMenu, setNavMenu] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   if (Cookies.get('jwt') !== undefined && !auth) {
     setAuth(true);
@@ -38,7 +40,11 @@ export default function NavBar() {
       setAuth(true);
       Cookies.set('jwt', json.data.access_token, { expires: 1 });
 
-      // TODO: decode jwt and set values?
+      const decoded = jwtDecode(Cookies.get('jwt') as string) as JwtPayload & { branch: string };
+      if (decoded.branch !== undefined)
+        navigate(`/tag/${decoded.branch}`)
+      else
+        navigate('/tag');
     },
   });
 

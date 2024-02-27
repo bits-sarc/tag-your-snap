@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <>
       <div className="py-20 flex flex-col text-center">
-        <div className="font-gilmer-heavy text-4xl">Login . Recognise . Tag .</div>
+        <div className="font-gilmer-heavy text-4xl">Login. Recognise. Tag.</div>
         <div className="pt-6 goblin-one-regular hero-text-grad">Capturing Memories</div>
         <div className="goblin-one-regular hero-text-grad">Capturing Smiles</div>
         <div className="py-8 font-gilmer-medium text-2xl">tagging made easy and effortless</div>
