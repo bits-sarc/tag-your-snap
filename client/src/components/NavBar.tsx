@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import FancyButton from './FancyButton';
-import sarcLogo from '/sarc.svg';
 import { useGoogleLogin } from '@react-oauth/google';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
@@ -46,11 +45,10 @@ export default function NavBar() {
   return (
     <nav className="px-4 md:px-8 xl:px-48 w-screen fixed top-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7539390756302521) 50%, rgba(0,0,0,0.5270483193277311) 81%, rgba(0,0,0,0) 100%)", zIndex: 10000 }}>
       <div className={(navMenu ? "bg-gradient-to-b from-black to-neutral-900 " : "") + "px-2 lg:from-transparent lg:to-transparent lg:bg-transparent rounded-3xl mt-4 pb-8"}>
-        <div className="relative flex h-32 items-center">
+        <div className="relative flex h-32 items-center justify-between">
           <div className="lg:basis-1/8 basis-0"></div>
           <div className="flex flex-row flex-start lg:basis-2/8">
-            <img src={sarcLogo} alt="SARC Logo" width={59} height={65} />
-            <span className="hidden md:inline px-2 text-5xl font-arial font-bold my-auto pl-6">SARC</span>
+            <span className="pt-2 inline px-2 text-5xl font-arial font-bold my-auto pl-6">SARC</span>
           </div>
           <div className="justify-around lg:basis-7/12 px-16 text-xl font-gilmer-bold hidden lg:flex">
             <div>
@@ -60,7 +58,10 @@ export default function NavBar() {
               <a href="#about">About</a>
             </div>
             <div>
-              <Link to="/">Contact</Link>
+              <Link to="#contact">Contact</Link>
+            </div>
+            <div>
+              <Link to="#faq">FAQ</Link>
             </div>
             <div>
               <Link to="/">Developers</Link>

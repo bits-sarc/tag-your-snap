@@ -22,11 +22,15 @@
   font-family: 'Arial';
 }
 
+.goblin-one-regular {
+  font-family: "Goblin One", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .hero-text-grad {
-  font-size: 80px;
-  background: -webkit-linear-gradient(#eee, #333);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 60px;
+  color: #DAC86D;
 }
 
 .hero-logo {
@@ -35,10 +39,13 @@
   cursor: pointer;
 }
 
+.hero-logo-inner {
+  border-color: #DAC86D;
+  background: linear-gradient(197deg, rgba(218,200,109,1) 0%, rgba(0,0,0,1) 100%);
+}
+
 .loop-text-grad {
-  background: -webkit-linear-gradient(#eee, #333);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #acacac;
 }
 
 .marquee {
