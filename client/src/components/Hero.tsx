@@ -11,7 +11,7 @@ export default function Hero() {
         <div className="py-8 font-gilmer-medium text-2xl">tagging made easy and effortless</div>
       </div>
       <div className="relative h-48">
-        <div className="absolute">
+        <div className="absolute max-w-full">
           <Marquee autoFill={true} gradient={true} gradientColor="#000" gradientWidth={400}>
             <div className="font-arial font-bold text-4xl loop-text-grad ml-32 mt-12">SARC</div>
           </Marquee>
