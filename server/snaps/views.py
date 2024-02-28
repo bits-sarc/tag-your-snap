@@ -239,16 +239,17 @@ class SnapDetailView(APIView):
                 ):
                     tag = Location.objects.filter(tag=user, branch=branch_code)
                     for i in tag:
-                        if i.locked and not (
-                            request.user.is_staff or request.user.is_superuser
-                        ):
-                            return Response(
-                                {
-                                    "error": True,
-                                    "message": f"The user has already been tagged in a locked location",
-                                },
-                                status=status.HTTP_403_FORBIDDEN,
-                            )
+                        if user != added_by:
+                            if i.locked and not (
+                                request.user.is_staff or request.user.is_superuser
+                            ):
+                                return Response(
+                                    {
+                                        "error": True,
+                                        "message": f"The user has already been tagged in a locked location",
+                                    },
+                                    status=status.HTTP_403_FORBIDDEN,
+                                )
                         i.tag = None
                         i.added_by = None
                         i.locked = False
