@@ -1,57 +1,21 @@
-import SnapOne from '/snap1.png';
+import Marquee from "react-fast-marquee";
+import SnapOne from "/snap1.png";
 
 export default function SnapWall() {
   return (
     <>
-      <article className="wrapper">
-        <div className="">
-          <div className="overflow-hidden">
-            <div className="flex gap-12 justify-around">
-              <img src={SnapOne} alt="Snap" width={611} />
-              <img src={SnapOne} alt="Snap" width={611} />
-              <img src={SnapOne} alt="Snap" width={611} />
-            </div>
-            <div className="flex gap-12 justify-around mt-8" style={{ transform: `translate(-305.5px)` }}>
-              <img src={SnapOne} alt="Snap" width={611} />
-              <img src={SnapOne} alt="Snap" width={611} />
-              <img src={SnapOne} alt="Snap" width={611} />
-              <img src={SnapOne} alt="Snap" width={611} />
-              <img src={SnapOne} alt="Snap" width={611} />
-            </div>
+      <article className="wrapper mt-20">
+        <Marquee autoFill={true} gradient={true} gradientColor="#000" gradientWidth={400}>
+          <div>
+            <img src={SnapOne} alt="Snap" width={611} className="ml-12" />
           </div>
-
-        </div>
-
-        {/* <div className="marquee marquee--reverse">
-          <div className="marquee__group">
-            <svg>
-              <use xlink:href="#hulu" />
-            </svg>
-            <svg>
-              <use xlink:href="#notion" />
-            </svg>
-            <svg>
-              <use xlink:href="#honda" />
-            </svg>
-            <svg>
-              <use xlink:href="#burger-king" />
-            </svg>
-            <svg>
-              <use xlink:href="#spotify" />
-            </svg>
-            <svg>
-              <use xlink:href="#aws" />
-            </svg>
-            <svg>
-              <use xlink:href="#jordan" />
-            </svg>
-            <svg>
-              <use xlink:href="#mcdonalds" />
-            </svg>
+        </Marquee>
+        <Marquee className="mt-12" autoFill={true} gradient={true} gradientColor="#000" direction={"right"} gradientWidth={400}>
+          <div>
+            <img src={SnapOne} alt="Snap" width={611} className="ml-12" />
           </div>
-
-        </div> */}
+        </Marquee>
       </article>
     </>
-  )
+  );
 }
