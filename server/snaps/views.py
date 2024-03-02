@@ -16,15 +16,14 @@ from django.utils.html import strip_tags
 def confirmation_mail():
     body = """<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
             <pre style="font-family:Roboto,sans-serif">
-
 Greetings from Student Alumni Relations Cell!
 
-Thank you for using tag-your-snap. Someone has tagged you in your batch snaps. Kindly <a href='%s'>click this link</a> to go to the website where you can login and confirm the tag.
+Thank you for using tag-your-snap. %s has tagged you in your batch snaps. Kindly <a href='%s'>click this link</a> to go to the website where you can login and confirm the tag.
 If there is any issue regarding the tag you can contact the undersigned.
 
 Name: Rakshit Sakhuja, Himanshu Kumar
 Phone: <a href="tel:+91 85868 66119">+91 85868 66119</a> , <a href="tel:+91 70701 97973">+91 70701 97973</a>
-<div dir="auto" style="white-space:normal;font-family:sans-serif;font-size:12.8px;color:rgb(136,136,136)"><span style="line-height:1.2em;outline:currentcolor none medium"><h3 style="font-size:12.8px;font-weight:normal;padding-top:0px;padding-right:0px;padding-left:0px;line-height:normal;margin:0px;text-overflow:ellipsis;white-space:nowrap"><span style="outline:currentcolor none medium"><span style="font-family:arial,sans-serif;font-size:12pt;line-height:1.2em;outline:currentcolor none medium;color:rgb(33,29,112)"><b style="color:rgb(34,34,34);font-size:12.8px;line-height:21.2667px;white-space:normal"><span style="color:rgb(253,175,23);font-size:7.5pt">▄▄▄▄▄▄</span></b></span></span><b style="color:rgb(34,34,34);line-height:21.2667px;white-space:normal"><span style="color:rgb(253,175,23);font-family:arial,sans-serif;font-size:7.5pt">▄</span></b><b style="color:rgb(34,34,34);line-height:21.2667px;white-space:normal"><span style="color:rgb(253,175,23);font-family:arial,sans-serif;font-size:7.5pt">▄</span></b><b style="color:rgb(34,34,34);line-height:21.2667px;white-space:normal"><span style="color:rgb(253,175,23);font-family:arial,sans-serif;font-size:7.5pt">▄▄▄▄▄▄▄</span></b><b style="color:rgb(34,34,34);line-height:21.2667px;white-space:normal"><span style="color:rgb(117,195,233);font-family:arial,sans-serif;font-size:7.5pt">▄▄▄▄▄▄▄▄▄▄▄</span></b><b style="color:rgb(34,34,34);line-height:21.2667px;white-space:normal"><span style="color:rgb(117,195,233);font-family:arial,sans-serif;font-size:7.5pt">▄</span></b><b style="color:rgb(34,34,34);line-height:21.2667px;white-space:normal"><span style="color:rgb(117,195,233);font-family:arial,sans-serif;font-size:7.5pt">▄</span></b><b style="color:rgb(34,34,34);line-height:21.2667px;white-space:normal"><span style="color:rgb(117,195,233);font-family:arial,sans-serif;font-size:7.5pt">▄▄</span></b><b style="color:rgb(34,34,34);line-height:21.2667px;white-space:normal"><span style="color:rgb(237,27,36);font-family:arial,sans-serif;font-size:7.5pt"><wbr>▄▄▄▄▄▄▄▄▄▄▄▄▄</span></b><b style="color:rgb(34,34,34);line-height:21.2667px;white-space:normal"><span style="color:rgb(237,27,36);font-family:arial,sans-serif;font-size:7.5pt">▄</span></b><b style="color:rgb(34,34,34);line-height:21.2667px;white-space:normal"><span style="color:rgb(237,27,36);font-family:arial,sans-serif;font-size:7.5pt">▄</span></b></h3><h3 style="padding-top:0px;padding-right:0px;padding-left:0px;line-height:normal;margin:0px;text-overflow:ellipsis;white-space:nowrap"><span style="outline:currentcolor none medium"><span style="line-height:1.2em;outline:currentcolor none medium"><span style="line-height:normal;outline:currentcolor none medium"><div style="font-weight:normal;white-space:normal"><div style="font-family:arial"><div style="line-height:17px"><p style="font-size:16px;line-height:20px;margin:0px"><b style="font-family:arial,sans-serif"><font size="2" color="#444444"><a href="https://www.bits-pilani.ac.in/" rel="noreferrer" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://www.bits-pilani.ac.in/&amp;source=gmail&amp;ust=1677555565844000&amp;usg=AOvVaw2BTchjGxAl_HXuB9UecrYn">Birla Institute of Technology and Science, Pilani</a></font></b><br></p></div></div></div></span></span></span></h3></span></div><div dir="auto" style="white-space:normal;font-family:sans-serif;font-size:12.8px;color:rgb(136,136,136)"><span style="font-family:arial,helvetica,sans-serif"><font size="1" color="#666666">Pilani Campus, Vidhya Vihar, Pilani, Rajasthan - 333 031, INDIA.</font></span></div>
+
 </pre>"""
     return body
 
@@ -291,10 +290,14 @@ class SnapDetailView(APIView):
                     from_email = (
                         "Student Alumni Relations Cell <alumnicell@bits-sarc.in>"
                     )
+                    if request.user.is_staff or request.user.is_superuser:
+                        added = "admin"
+                    else:
+                        added = request.user.profile.name
                     body = confirmation_mail()
                     snaps_url = "snaps.bits-sarc.in"
                     to_emails = (user.user.email,)
-                    html_message = body % (snaps_url)
+                    html_message = body % (added, snaps_url)
                     plain_message = strip_tags(html_message)
                     try:
                         send_mail(
