@@ -1,4 +1,3 @@
-import footerBg from "/footer.svg"
 import sarcLogo from "/sarc-logo.svg"
 
 export default function Footer() {
