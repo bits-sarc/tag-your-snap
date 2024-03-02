@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <div style={{ backgroundImage: "url(footer.svg)", backgroundSize: "cover" }} className="mt-48 min-h-[300px] py-16 font-gilmer-medium">
       <div className="container mx-auto flex flex-row">
-        <div className="basis-5/12">
+        <div className="basis-5/12" id="contact">
           <span style={{ color: "#DAC86D", fontSize: "32px" }}>Email Us</span>
           <div style={{ fontSize: "30px" }}>
             <a href="mailto:alumnicell@pilani.bits-pilani.ac.in">alumnicell@pilani.bits-pilani.ac.in</a>

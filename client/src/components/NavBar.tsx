@@ -49,7 +49,7 @@ export default function NavBar() {
   });
 
   return (
-    <nav className="px-4 md:px-8 xl:px-48 w-screen fixed top-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7539390756302521) 50%, rgba(0,0,0,0.5270483193277311) 81%, rgba(0,0,0,0) 100%)", zIndex: 10000 }}>
+    <nav className="px-4 md:px-8 xl:px-48aa w-screen fixed top-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7539390756302521) 50%, rgba(0,0,0,0.5270483193277311) 81%, rgba(0,0,0,0) 100%)", zIndex: 10000 }}>
       <div className={(navMenu ? "bg-gradient-to-b from-black to-neutral-900 " : "") + "px-2 lg:from-transparent lg:to-transparent lg:bg-transparent rounded-3xl mt-4 pb-8"}>
         <div className="relative flex h-32 items-center justify-between">
           <div className="lg:basis-1/8 basis-0"></div>
@@ -66,9 +66,9 @@ export default function NavBar() {
             <div>
               <Link to="#contact">Contact</Link>
             </div>
-            <div>
+            {/* <div>
               <Link to="#faq">FAQ</Link>
-            </div>
+            </div> */}
             <div>
               <Link to="/">Developers</Link>
             </div>
