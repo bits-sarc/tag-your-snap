@@ -164,3 +164,10 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+EMAIL_BACKEND = "django_ses.SESBackend"
+AWS_ACCESS_KEY_ID = os.environ.get("SES_ACCESS_KEY")
+AWS_SECRET_ACCESS_KEY = os.environ.get("SES_ACCESS_SECRET")
+
+AWS_SES_REGION_NAME = "eu-north-1"
+AWS_SES_REGION_ENDPOINT = "email.eu-north-1.amazonaws.com"
