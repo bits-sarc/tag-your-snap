@@ -12,7 +12,7 @@ export default function HowItWorks() {
         <img src={hiwdash} alt="" />
       </div>
       <div className="container max-w-[900px] basis-3/4 relative ml-auto">
-        <Link to="https://youtube.com" target="_blank">
+        <Link to="https://youtu.be/NuyQqXrAEmc" target="_blank">
           <img src={hiw} alt="Video Instructions" />
         </Link>
         <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2" style={{ color: "#fff" }}>
