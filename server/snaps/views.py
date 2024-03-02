@@ -291,7 +291,7 @@ class SnapDetailView(APIView):
                         "Student Alumni Relations Cell <alumnicell@bits-sarc.in>"
                     )
                     if request.user.is_staff or request.user.is_superuser:
-                        added = "admin"
+                        added = "Admin"
                     else:
                         added = request.user.profile.name
                     body = confirmation_mail()
