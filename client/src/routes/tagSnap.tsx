@@ -59,6 +59,11 @@ export default function TagSnap() {
     for (let i = 0; i < snapData.locations.length; i++) {
       const location = snapData.locations[i];
 
+      if (location.locked == false && location.tag != undefined && location.tag.id == decoded.user_id) {
+        setSelectedFace(location.id);
+        setSelectedUserId(location.tag.id);
+      }
+
       if (location.row > maxRow) setMaxRow(location.row);
     }
 
