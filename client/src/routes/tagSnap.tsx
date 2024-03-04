@@ -59,7 +59,7 @@ export default function TagSnap() {
     for (let i = 0; i < snapData.locations.length; i++) {
       const location = snapData.locations[i];
 
-      if (location.locked == false && location.tag != undefined && location.tag.id == decoded.user_id) {
+      if (location.locked == false && location.tag != undefined && location.tag.bits_id == decoded.bits_id) {
         setSelectedFace(location.id);
         setSelectedUserId(location.tag.id);
       }
