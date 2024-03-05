@@ -53,7 +53,7 @@ export default function TagSnap() {
       navigate("/");
     }
 
-    const decoded = jwtDecode(Cookies.get('jwt') as string) as JwtPayload & { branch: string };
+    const decoded = jwtDecode(Cookies.get('jwt') as string) as JwtPayload & { branch: string, bits_id: string };
     if (decoded.branch !== undefined && decoded.branch !== branchCode) navigate("/");
 
     for (let i = 0; i < snapData.locations.length; i++) {
