@@ -20,7 +20,7 @@ def run():
         "Management": ["H154"]
     }
 
-    workbook = openpyxl.load_workbook('professors.xlsx')
+    workbook = openpyxl.load_workbook('scripts/professors.xlsx')
     sheet = workbook.active
 
     profs_data = {}
