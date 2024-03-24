@@ -50,7 +50,7 @@ def run():
                     prof = "Prof. " + prof
             prof = prof.replace("PhD", "")
             for branch_code in branches:
-                username = "".join(prof.split(" "))
+                username = "".join(prof.split(" ")) + branch_code
                 user = User.objects.create(username=username)
                 branch = Branch.objects.get(branch_code=branch_code)
                 UserProfile.objects.create(user=user, name=prof, branch=branch, is_prof=True)
