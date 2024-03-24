@@ -41,6 +41,13 @@ for dept in profs_data.keys():
     branches = depts[dept]
 
     for prof in profs_data[dept]:
+        prof = prof.replace(",", "")
+        if not "Prof." in prof:
+            if "Dr." in prof:
+                prof = prof.replace("Dr.", "Prof.")
+            else:
+                prof = "Prof. " + prof
+        prof = prof.replace("PhD", "")
         for branch_code in branches:
             username = "".join(prof.split(" "))
             user = User.objects.create(username=username)
