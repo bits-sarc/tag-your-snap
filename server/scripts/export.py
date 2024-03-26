@@ -12,9 +12,9 @@ def export_bitsians():
     wb = openpyxl.Workbook()
     for i in branches:
         try:
+            ws = wb.create_sheet(title=f"{i.branch_code}", index=c)
             ws = wb.worksheets[c]
             c += 1
-            ws.title = f"{i.branch_code}"
             colms = Location.objects.filter(branch=i).distinct("row").count()
             ascii = 65
             for j in range(0, colms):
