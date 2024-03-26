@@ -23,8 +23,8 @@ def export_bitsians():
                     ws[f"{chr(ascii)}1"] = f"Standing Row {j}"
                 ascii += 1
             ascii = 65
-            for j in range(0, colms):
-                locs = Location.objects.filter(Q(branch=i) & Q(row=j))
+            for l in range(0, colms):
+                locs = Location.objects.filter(Q(branch=i) & Q(row=l))
                 print(locs.count())
                 row = 2
                 for k in locs:
