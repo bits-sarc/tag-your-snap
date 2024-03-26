@@ -16,22 +16,27 @@ def export_bitsians():
             ws.title = f"{i.branch_code}"
             colms = Location.objects.filter(branch=i).distinct("row").count()
             ascii = 65
+            print(1)
             for j in range(0, colms):
                 if j == 0:
                     ws[f"{chr(ascii)}1"] = "Sitting Row"
                 else:
                     ws[f"{chr(ascii)}1"] = f"Standing Row {j}"
+                print(2)
                 ascii += 1
             ascii = 65
+            print(3)
             for j in range(0, colms):
                 locs = Location.objects.filter(Q(branch=i) & Q(row=j))
                 row = 2
+                print(4)
                 for k in locs:
                     if k.tag:
                         ws[f"{chr(ascii)}{row}"] = f"{k.tag.name}"
                     else:
                         ws[f"{chr(ascii)}{row}"] = ""
                     row += 1
+                    print(5)
                 ascii += 1
         except Exception as e:
             print(e)
