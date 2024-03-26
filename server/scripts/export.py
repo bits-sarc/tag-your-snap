@@ -29,7 +29,7 @@ def export_bitsians():
                 row = 2
                 for k in locs:
                     if k.tag:
-                        ws[f"{chr(ascii)}{row}"] = f"{k.tag.name}"
+                        ws[f"{chr(ascii)}{row}"] = f"{k.tag.name}".title()
                     else:
                         ws[f"{chr(ascii)}{row}"] = ""
                     row += 1
