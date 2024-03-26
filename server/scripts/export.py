@@ -25,8 +25,7 @@ def export_bitsians():
                 ascii += 1
             ascii = 65
             for l in range(0, colms):
-                locs = Location.objects.filter(Q(branch=i) & Q(row=l))
-                print(locs.count())
+                locs = Location.objects.filter(Q(branch=i) & Q(row=l)).order_by("x")
                 row = 2
                 for k in locs:
                     if k.tag:
