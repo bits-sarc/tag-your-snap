@@ -38,9 +38,10 @@ def export_bitsians():
                     row += 1
                     print(5)
                 ascii += 1
+            c += 1
         except Exception as e:
             print(e)
-        c += 1
+
     wb.save("Exported_excel.xlsx")
     wb.close()
 
