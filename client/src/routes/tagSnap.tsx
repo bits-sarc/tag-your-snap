@@ -53,13 +53,13 @@ export default function TagSnap() {
       navigate("/");
     }
 
-    const decoded = jwtDecode(Cookies.get('jwt') as string) as JwtPayload & { branch: string };
+    const decoded = jwtDecode(Cookies.get('jwt') as string) as JwtPayload & { branch: string, bits_id: string };
     if (decoded.branch !== undefined && decoded.branch !== branchCode) navigate("/");
 
     for (let i = 0; i < snapData.locations.length; i++) {
       const location = snapData.locations[i];
 
-      if (location.locked == false && location.tag != undefined && location.tag.id == decoded.user_id) {
+      if (location.locked == false && location.tag != undefined && location.tag.bits_id == decoded.bits_id) {
         setSelectedFace(location.id);
         setSelectedUserId(location.tag.id);
       }
