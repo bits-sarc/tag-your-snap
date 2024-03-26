@@ -7,12 +7,13 @@ import openpyxl
 
 
 def export_bitsians():
-    branch = Branch.objects.all()
+    branches = Branch.objects.all()
     c = 0
     wb = openpyxl.Workbook()
-    for i in branch:
+    for i in branches:
         try:
             ws = wb.worksheets[c]
+            c += 1
             ws.title = f"{i.branch_code}"
             colms = Location.objects.filter(branch=i).distinct("row").count()
             ascii = 65
@@ -33,9 +34,7 @@ def export_bitsians():
                     else:
                         ws[f"{chr(ascii)}{row}"] = ""
                     row += 1
-                    print(1)
                 ascii += 1
-            c += 1
         except Exception as e:
             print(e)
 
