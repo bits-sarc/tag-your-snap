@@ -10,8 +10,10 @@ def export_bitsians():
     branches = Branch.objects.all()
     c = 0
     wb = openpyxl.Workbook()
+    f = open("export.txt", "w")
     for i in branches:
         try:
+            f.write(f"{i.branch_code} - {i.branch_name}")
             ws = wb.create_sheet(title=f"{i.branch_code}", index=c)
             ws = wb.worksheets[c]
             c += 1
@@ -25,15 +27,23 @@ def export_bitsians():
                 ascii += 1
             ascii = 65
             for l in range(0, colms):
+                if l == 0:
+                    f.write(f"Sitting Row: ")
+                else:
+                    f.wrtite(f"Standing Row {j}: ")
                 locs = Location.objects.filter(Q(branch=i) & Q(row=l)).order_by("x")
                 row = 2
                 for k in locs:
                     if k.tag:
                         ws[f"{chr(ascii)}{row}"] = f"{k.tag.name}".title()
+                        f.write(f"{k.tag.name}, ".title())
                     else:
-                        ws[f"{chr(ascii)}{row}"] = ""
+                        ws[f"{chr(ascii)}{row}"] = "-"
+                        f.write(f"-, ".title())
                     row += 1
                 ascii += 1
+                f.write("\n")
+            f.write("\n\n\n")
         except Exception as e:
             print(e)
 
