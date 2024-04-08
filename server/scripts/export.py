@@ -46,9 +46,15 @@ def export_bitsians():
             f.write("\n\n\n")
         except Exception as e:
             print(e)
-
+    
+    f.close()
     wb.save("Exported_excel.xlsx")
     wb.close()
+
+    for branch in Branch.objects.filter():
+        f = open("list.txt", "w")
+        f.write(f"{branch.branch_code,branch.students.filter().count()}")
+    f.close()
 
 
 def run():
