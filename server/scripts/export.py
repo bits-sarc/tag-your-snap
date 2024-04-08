@@ -13,11 +13,11 @@ def export_bitsians():
     f = open("export.txt", "w")
     for i in branches:
         try:
-            f.write(f"{i.branch_code} - {i.branch_name}")
+            f.write(f"{i.branch_code} - {i.branch_name}\n\n\n")
             ws = wb.create_sheet(title=f"{i.branch_code}", index=c)
-            ws = wb.worksheets[c]
+            ws = wb.worksheets[c]h
             c += 1
-            colms = Location.objects.filter(branch=i).distinct("row").count()
+            colms = Location.objects.filter(branc=i).distinct("row").count()
             ascii = 65
             for j in range(0, colms):
                 if j == 0:
@@ -51,8 +51,8 @@ def export_bitsians():
     wb.save("Exported_excel.xlsx")
     wb.close()
 
+    f = open("list.txt", "w")
     for branch in Branch.objects.filter():
-        f = open("list.txt", "w")
         f.write(f"{branch.branch_code,branch.students.filter().count()}")
     f.close()
 
