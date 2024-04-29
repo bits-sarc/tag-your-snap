@@ -17,7 +17,7 @@ def export_bitsians():
             ws = wb.create_sheet(title=f"{i.branch_code}", index=c)
             ws = wb.worksheets[c]
             c += 1
-            colms = Location.objects.filter(branc=i).distinct("row").count()
+            colms = Location.objects.filter(branch=i).distinct("row").count()
             ascii = 65
             for j in range(0, colms):
                 if j == 0:
@@ -30,7 +30,7 @@ def export_bitsians():
                 if l == 0:
                     f.write(f"Sitting Row: ")
                 else:
-                    f.wrtite(f"Standing Row {j}: ")
+                    f.write(f"Standing Row {j}: ")
                 locs = Location.objects.filter(Q(branch=i) & Q(row=l)).order_by("x")
                 row = 2
                 for k in locs:
@@ -60,31 +60,20 @@ def export_bitsians():
 def export_excel():
     branches = Branch.objects.all()
     c = 0
+    row = 2
     wb = openpyxl.Workbook()
+    ws = wb.worksheets[0]
+    ws["A1"] = "Name"
+    ws["B1"] = "BITS_ID"
+    ws["C1"] = "Branch"
     for i in branches:
         try:
-            ws = wb.create_sheet(title=f"{i.branch_code}", index=c)
-            ws = wb.worksheets[c]
-            c += 1
-            colms = Location.objects.filter(branch=i).distinct("row").count()
-            ascii = 65
-            for j in range(0, colms):
-                if j == 0:
-                    ws[f"{chr(ascii)}1"] = "Sitting Row"
-                else:
-                    ws[f"{chr(ascii)}1"] = f"Standing Row {j}"
-                ascii += 1
-            ascii = 65
-            for l in range(0, colms):
-                locs = Location.objects.filter(Q(branch=i) & Q(row=l)).order_by("x")
-                row = 2
-                for k in locs:
-                    if k.tag:
-                        ws[f"{chr(ascii)}{row}"] = f"{k.tag.name}".title()
-                    else:
-                        ws[f"{chr(ascii)}{row}"] = ""
-                    row += 1
-                ascii += 1
+            locs = Location.objects.filter(Q(branch=i)).order_by("row")
+            for l in locs:
+                ws["A{}".format(row)] = l.tag.name
+                ws["B{}".format(row)] = l.tag.bits_id
+                ws["C{}".format(row)] = i.branch_code
+                row += 1
         except Exception as e:
             print(e)
 
