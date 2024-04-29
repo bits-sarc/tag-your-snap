@@ -67,16 +67,16 @@ def export_excel():
     ws["B1"] = "BITS_ID"
     ws["C1"] = "Branch"
     for i in branches:
-        try:
-            locs = Location.objects.filter(Q(branch=i)).order_by("row")
-            for l in locs:
+        locs = Location.objects.filter(Q(branch=i))
+        for l in locs:
+            try:
                 if l.tag.is_prof == False:
                     ws["A{}".format(row)] = l.tag.name
                     ws["B{}".format(row)] = l.tag.bits_id
                     ws["C{}".format(row)] = i.branch_code
                     row += 1
-        except Exception as e:
-            print(e)
+            except Exception as e:
+                print(e)
 
     wb.save("Exported_excel.xlsx")
     wb.close()
