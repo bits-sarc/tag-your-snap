@@ -70,10 +70,11 @@ def export_excel():
         try:
             locs = Location.objects.filter(Q(branch=i)).order_by("row")
             for l in locs:
-                ws["A{}".format(row)] = l.tag.name
-                ws["B{}".format(row)] = l.tag.bits_id
-                ws["C{}".format(row)] = i.branch_code
-                row += 1
+                if l.tag.is_prof == False:
+                    ws["A{}".format(row)] = l.tag.name
+                    ws["B{}".format(row)] = l.tag.bits_id
+                    ws["C{}".format(row)] = i.branch_code
+                    row += 1
         except Exception as e:
             print(e)
 
