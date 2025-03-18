@@ -4,35 +4,46 @@ services:
     image: postgres
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    ports:
+      - 6000:5432
     env_file:
       - project.env
+    networks:
+      - app-tier
   web:
     container_name: tys-web
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:7000
     volumes:
       - .:/home/app/web
       - staticfiles:/home/app/web/staticfiles
       - mediafiles:/home/app/web/media
     ports:
-      - "8000"
+      - "7000"
     expose:
-      - 8000
+      - 7000
     env_file:
       - project.env
     depends_on:
       - db
+    networks:
+      - app-tier
 
   nginx:
     container_name: tys-nginx
     image: nginx:mainline-alpine
     restart: always
     ports:
-      - "1520:80"
+      - "1520:70"
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - staticfiles:/home/app/web/staticfiles
       - mediafiles:/home/app/web/media
+    networks:
+      - app-tier
+
+networks:
+  app-tier:
 
 volumes:
   postgres-data:
