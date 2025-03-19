@@ -288,7 +288,7 @@ class SnapDetailView(APIView):
                 if user != added_by:
                     subject = "Confirm your batch snaps tag"
                     from_email = (
-                        "Student Alumni Relations Cell <alumnicell@bits-sarc.in>"
+                        "Student Alumni Relations Cell <alumnicell@pilani.bits-pilani.ac.in>"
                     )
                     if request.user.is_staff or request.user.is_superuser:
                         added = "Admin"
