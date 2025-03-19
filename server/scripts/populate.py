@@ -4,6 +4,31 @@ from django.contrib.auth.models import User
 from snaps.helpers import create_bitsian
 from openpyxl import load_workbook
 
+branch_full_names = {
+    "A1": "Chemical Engineering",
+    "A2": "Civil Engineering",
+    "A3": "Electrical & Electronics Engineering",
+    "A4": "Mechanical Engineering",
+    "A5": "Pharmacy",
+    "A7": "Computer Science",
+    "A8": "Electronics & Instrumentation Engineering",
+    "AA": "Electronics & Communication Engineering",
+    "AB": "Manufacturing Engineering",
+    "BXA1": "Dua; Chemical Engineering",
+    "BXA2": "Dual Civil Engineering",
+    "BXA3": "Dual Electrical & Electronics Engineering",
+    "BXA4": "Dual Mechanical Engineering",
+    "BXA7": "Dual Computer Science",
+    "BXA8": "Dual Electronics & Instrumentation Engineering",
+    "BXAA": "Dual Electronics & Communication Engineering",
+    "BXAB": "Dual Manufacturing Engineering",
+    "B1": "MSc. Biological Sciences",
+    "B2": "MSc. Chemistry",
+    "B3": "MSc. Economics",
+    "B4": "MSc. Mathematics",
+    "B5": "MSc. Physics",
+    "RMIT": "RMIT Collaboration Programme",
+}
 
 def populate_bitsians():
     wb = load_workbook("scripts/mess_list.xlsx")
@@ -28,8 +53,8 @@ def populate_bitsians():
                 if bits_id[6] == "P" or bits_id[6] == "T":
                     continue
                 branch_name = f"BX{bits_id[6:8]}"
-            elif bits_id[:4] == "2023" and bits_id[5:8] == "CP":
-                branch_name = bits_id[4:8]
+            elif bits_id[:4] == "2023" and bits_id[7:9] == "CP":
+                branch_name = "RMIT"
             else:
                 continue
         username = ws.cell(row=i, column=3).value
@@ -40,7 +65,7 @@ def populate_bitsians():
                 email=email,
                 bits_id=bits_id,
                 name=username,
-                branch_name=branch_name,
+                branch_name=branch_full_names[branch_name],
                 branch_code=branch_name,
             )
             print(f"{i} : {user}")
