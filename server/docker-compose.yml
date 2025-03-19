@@ -19,9 +19,7 @@ services:
       - staticfiles:/home/app/web/staticfiles
       - mediafiles:/home/app/web/media
     ports:
-      - "7000"
-    expose:
-      - 7000
+      - "7000:7000"
     env_file:
       - project.env
     depends_on:
