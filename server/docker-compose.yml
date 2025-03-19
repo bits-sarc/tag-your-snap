@@ -34,7 +34,7 @@ services:
     image: nginx:mainline-alpine
     restart: always
     ports:
-      - "1520:80"
+      - "1520:70"
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - staticfiles:/home/app/web/staticfiles
