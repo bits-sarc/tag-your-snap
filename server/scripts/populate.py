@@ -72,7 +72,7 @@ def populate_bitsians():
                 if bits_id[6] == "P" or bits_id[6] == "T":
                     continue
                 branch_name = f"BX{bits_id[6:8]}"
-            elif bits_id[:4] == "2023" and bits_id[7:9] == "CP":
+            elif bits_id[:4] == "2023" and bits_id[6:8] == "CP": # 2023A4CP0327P
                 branch_name = "RMIT"
             else:
                 continue
