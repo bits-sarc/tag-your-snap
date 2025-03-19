@@ -18,16 +18,18 @@ def populate_bitsians():
         elif user_type == "H":
             prefix = "h"
             branch_name = bits_id[4:8]
-            if bits_id[:4] != "2023":
+            if bits_id[:4] != "2024":
                 continue
         else:
             prefix = "f"
-            if bits_id[:4] == "2021":
+            if bits_id[:4] == "2022":
                 branch_name = bits_id[4:6]
-            elif bits_id[:4] == "2020" and (bits_id[4] == "B"):
+            elif bits_id[:4] == "2021" and (bits_id[4] == "B"):
                 if bits_id[6] == "P" or bits_id[6] == "T":
                     continue
                 branch_name = f"BX{bits_id[6:8]}"
+            elif bits_id[:4] == "2023" and bits_id[5:8] == "CP":
+                branch_name = bits_id[4:8]
             else:
                 continue
         username = ws.cell(row=i, column=3).value
