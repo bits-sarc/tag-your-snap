@@ -29,7 +29,7 @@ Phone: <a href="tel:+91 85868 66119">+91 85868 66119</a> , <a href="tel:+91 7070
 
 
 class SnapView(APIView):
-    # permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser]
 
     def post(self, request, format=None, *args, **kwargs):
         try:
