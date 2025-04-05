@@ -309,7 +309,7 @@ class SnapDetailView(APIView):
                             fail_silently=False,
                         )
                     except:
-                        pass
+                        print("No email was sent!!!")
             return Response({"error": False, "data": new_taggings.data})
 
         except KeyError:
