@@ -48,6 +48,7 @@ class GoogleView(APIView):
 
         decode_jwt["bits_id"] = user.profile.bits_id
         decode_jwt["branch"] = user.profile.branch.branch_code
+        
         # if not (user.is_superuser or user.is_staff):
         #      decode_jwt["bits_id"] = user.profile.bits_id
         #      decode_jwt["branch"] = user.profile.branch.branch_code

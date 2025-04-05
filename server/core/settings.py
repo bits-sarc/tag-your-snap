@@ -169,5 +169,5 @@ EMAIL_BACKEND = "django_ses.SESBackend"
 AWS_ACCESS_KEY_ID = os.environ.get("SES_ACCESS_KEY")
 AWS_SECRET_ACCESS_KEY = os.environ.get("SES_ACCESS_SECRET")
 
-AWS_SES_REGION_NAME = "eu-north-1"
-AWS_SES_REGION_ENDPOINT = "email.eu-north-1.amazonaws.com"
+AWS_SES_REGION_NAME = "us-east-1"
+AWS_SES_REGION_ENDPOINT = "email.us-east-1.amazonaws.com"

@@ -21,8 +21,8 @@ Greetings from Student Alumni Relations Cell!
 Thank you for using tag-your-snap. %s has tagged you in your batch snaps. Kindly <a href='%s'>click this link</a> to go to the website where you can login and confirm the tag.
 If there is any issue regarding the tag you can contact the undersigned.
 
-Name: Rakshit Sakhuja, Himanshu Kumar
-Phone: <a href="tel:+91 85868 66119">+91 85868 66119</a> , <a href="tel:+91 70701 97973">+91 70701 97973</a>
+Name: Prithvi Gowda C
+Phone: <a href="tel:+91 96632 74487">+91 96632 74487</a>
 
 </pre>"""
     return body
