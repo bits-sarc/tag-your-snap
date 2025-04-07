@@ -39,8 +39,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://20.68.16.151",
     "http://127.0.0.1:1337",
     "http://localhost:1337",
-    "https://snaps-api.bits-sarc.in",
-    "snaps-dun.vercel.app"
+    "https://snaps-api.bits-sarc.in"
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 
