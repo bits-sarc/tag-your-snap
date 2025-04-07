@@ -33,12 +33,14 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "20.68.16.151",
     "snaps-api.bits-sarc.in",
+    "snaps-dun.vercel.app"
 ]
 CSRF_TRUSTED_ORIGINS = [
     "https://20.68.16.151",
     "http://127.0.0.1:1337",
     "http://localhost:1337",
     "https://snaps-api.bits-sarc.in",
+    "snaps-dun.vercel.app"
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 
