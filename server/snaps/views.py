@@ -308,6 +308,7 @@ class SnapDetailView(APIView):
                             html_message=html_message,
                             fail_silently=False,
                         )
+                        print('email was sent to the USER!!!')
                     except Exception as e:
                         print(f'No email was sent: {e}')
             return Response({"error": False, "data": new_taggings.data})
