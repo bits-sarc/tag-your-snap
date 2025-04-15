@@ -17,7 +17,8 @@ def run():
         "Chemical": ["H101", "A1", "BXA1"],
         "Mech": ["A4", "BXA4", "H106", "H141", "AB", "BXAB", "H142"],
         "Humanities": ["D2"],
-        "Management": ["H154"]
+        "Management": ["H154"],
+        "RMIT": ["RMIT"]
     }
 
     workbook = openpyxl.load_workbook('scripts/professors.xlsx')
