@@ -83,4 +83,12 @@ def export_excel():
 
 
 def run():
+    print("Starting export_bitsians...")
+    export_bitsians()
+    print("export_bitsians completed.")
+    
+    print("Starting export_excel...")
     export_excel()
+    print("export_excel completed.")
+    
+    print("All export operations completed successfully.")
