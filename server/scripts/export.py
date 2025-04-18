@@ -30,7 +30,7 @@ def export_bitsians():
                 if l == 0:
                     f.write(f"Sitting Row: ")
                 else:
-                    f.write(f"Standing Row {j}: ")
+                    f.write(f"Standing Row {l}: ")
                 locs = Location.objects.filter(Q(branch=i) & Q(row=l)).order_by("x")
                 row = 2
                 for k in locs:
