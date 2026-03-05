@@ -81,17 +81,17 @@ def populate_bitsians():
         elif user_type == "H":
             prefix = "h"
             branch_name = bits_id[4:8]
-            if bits_id[:4] != "2024":
+            if bits_id[:4] != "2025":
                 continue
         else:
             prefix = "f"
-            if bits_id[:4] == "2022":
+            if bits_id[:4] == "2023":
                 branch_name = bits_id[4:6]
-            elif bits_id[:4] == "2021" and (bits_id[4] == "B"):
+            elif bits_id[:4] == "2022" and (bits_id[4] == "B"):
                 if bits_id[6] == "P" or bits_id[6] == "T":
                     continue
                 branch_name = f"BX{bits_id[6:8]}"
-            elif bits_id[:4] == "2023" and bits_id[6:8] == "CP": # 2023A4CP0327P
+            elif bits_id[:4] == "2024" and bits_id[6:8] == "CP": # 2024A4CP0327P
                 branch_name = "RMIT"
             else:
                 continue
