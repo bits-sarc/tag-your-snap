@@ -4,22 +4,31 @@ import openpyxl
 import random
 
 def run():
+
     depts = {
-        "CSIS": ["A7", "BXA7", "H112", "H103"],
-        "Civil": ["H130", "H155", "H143", "H144", "A2", "BXA2"],
-        "Bio": ["H129", "B1"],
-        "Chemistry": ["B2"],
-        "Eco": ["B3"],
-        "Math": ["B4"],
-        "Phy": ["B5"],
-        "EEE": ["H140", "H123", "H124", "A3", "BXA3", "BXA8", "BXAA", "AA", "A8"],
-        "Pharma": ["H146", "H147", "H153", "A5"],
-        "Chemical": ["H101", "A1", "BXA1"],
-        "Mech": ["A4", "BXA4", "H106", "H141", "AB", "BXAB", "H142"],
-        "Humanities": ["D2"],
-        "Management": ["H154"],
-        "RMIT": ["RMIT"]
-    }
+    "CSIS": ["A7", "BXA7", "H112", "H103", "PHXF/P", "UBA7"],
+    "Civil": ["H130", "H155", "H143", "H144", "A2", "BXA2", "A2RM", "PHXF/P"],
+    "Bio": ["H129", "B1", "PHXF/P"],
+    "Chemistry": ["B2", "PHXF/P"],
+    "Eco": ["B3", "PHXF/P"],
+    "Math": ["B4", "PHXF/P"],
+    "Phy": ["B5", "PHXF/P"],
+    "EEE": [
+        "H140", "H123", "H124", "H131",
+        "A3", "BXA3", "BXA8", "BXAA",
+        "AA", "A8", "AAIS", "A3UB",
+        "PHXF/P"],
+    "Pharma": ["H146", "H147", "H153", "A5", "PHXF/P"],
+    "Chemical": ["H101", "A1", "BXA1", "PHXF/P"],
+    "Mech": [
+        "A4", "BXA4", "A4RM",
+        "H106", "H141",
+        "AB", "BXAB", "H142",
+        "PHXF/P"],
+    "Humanities": ["D2", "PHXF/P"],
+    "Management": ["H154", "PHXF/P"],
+    "RMIT": ["RMIT", "A4RM", "A2RM"]
+}
 
     workbook = openpyxl.load_workbook('scripts/professors.xlsx')
     sheet = workbook.active
