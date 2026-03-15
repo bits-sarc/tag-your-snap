@@ -47,7 +47,6 @@ branch_full_names = {
   "H153": "M. Pharmacy (Pharmacology)",
   "H154": "MBA",
   "D2": "M.Sc. Tech (General Studies)",
-  "PHXF": "Ph.D Chemical Engineering",
   "PHXH": "Ph.D Humanities & Social Science",
   "PHPH": "PhD. Pharmacy",
   "PHCS": "Ph.D Computer Science & Information Systems",
@@ -65,7 +64,14 @@ branch_full_names = {
   "AAIS": "B.E. Electronics and Communication Engineering (2+2 ISU)",
   "A3UB": "B.E. Electrical and Electronics Engineering (2+2 UB)",
   "A4RM": "B.E. Mechanical (RMIT)",
-  "A2RM": "B.E. Civil Engineering (RMIT)"
+  "A2RM": "B.E. Civil Engineering (RMIT)",
+  "PHXP": "Ph.D",
+  "PHOF": "Ph.D",
+  "PHDF": "Ph.D",
+  "PHDP": "Ph.D",
+  "PHXF": "Ph.D",
+  "PHRF": "Ph.D",
+  "PHRP": "Ph.D",
 }
 
 def populate_bitsians():
