@@ -33,7 +33,9 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "20.68.16.151",
     "snaps-api.bits-sarc.in",
-    "snaps-dun.vercel.app"
+    "snaps-dun.vercel.app",
+    "159.65.147.152",
+    "tys-nginx"
 ]
 CSRF_TRUSTED_ORIGINS = [
     "https://20.68.16.151",

@@ -46,7 +46,26 @@ branch_full_names = {
   "H147": "M. Pharmacy (Pharmaceutical Chemistry)",
   "H153": "M. Pharmacy (Pharmacology)",
   "H154": "MBA",
-  "D2": "M.Sc. Tech (General Studies)"
+  "D2": "M.Sc. Tech (General Studies)",
+  "PHXF": "Ph.D Chemical Engineering",
+  "PHXH": "Ph.D Humanities & Social Science",
+  "PHPH": "PhD. Pharmacy",
+  "PHCS": "Ph.D Computer Science & Information Systems",
+  "PHMG": "Ph.D Management",
+  "PHEF": "Ph.D Economics & Finance",
+  "PHCH": "Ph.D Chemistry",
+  "H131": "M.E. (Power Electronics and Drives)",
+  "PHEE": "Ph.D Electrical and Electronics Engineering",
+  "PHPY": "Ph.D Physics",
+  "PHMA": "Ph.D Mathematics",
+  "PHBI": "Ph.D Biological Sciences",
+  "PHME": "Ph.D Mechanical Engineering",
+  "PHCE": "Ph.D Civil Engineering",
+  "UBA7": "B.E. Computer Science (2+2 UB)",
+  "AAIS": "B.E. Electronics and Communication Engineering (2+2 ISU)",
+  "A3UB": "B.E. Electrical and Electronics Engineering (2+2 UB)",
+  "A4RM": "B.E. Mechanical (RMIT)",
+  "A2RM": "B.E. Civil Engineering (RMIT)"
 }
 
 def populate_bitsians():
@@ -58,22 +77,23 @@ def populate_bitsians():
         prefix = ""
         branch_name = ""
         if user_type == "P":
-            continue
+            prefix = "p"
+            branch_name = bits_id[4:8]
         elif user_type == "H":
             prefix = "h"
             branch_name = bits_id[4:8]
-            if bits_id[:4] != "2024":
+            if bits_id[:4] != "2025":
                 continue
         else:
             prefix = "f"
-            if bits_id[:4] == "2022":
+            if bits_id[:4] == "2023":
                 branch_name = bits_id[4:6]
-            elif bits_id[:4] == "2021" and (bits_id[4] == "B"):
+            elif bits_id[:4] == "2022" and (bits_id[4] == "B"):
                 if bits_id[6] == "P" or bits_id[6] == "T":
                     continue
                 branch_name = f"BX{bits_id[6:8]}"
-            elif bits_id[:4] == "2023" and bits_id[6:8] == "CP": # 2023A4CP0327P
-                branch_name = "RMIT"
+            elif bits_id[:4] == "2024" and bits_id[6:8] != "PS": # 2024A4CP0327P
+              branch_name = bits_id[4:8]
             else:
                 continue
         username = ws.cell(row=i, column=3).value
