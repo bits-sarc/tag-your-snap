@@ -65,13 +65,13 @@ branch_full_names = {
   "A3UB": "B.E. Electrical and Electronics Engineering (2+2 UB)",
   "A4RM": "B.E. Mechanical (RMIT)",
   "A2RM": "B.E. Civil Engineering (RMIT)",
-  "PHXP": "Ph.D",
-  "PHOF": "Ph.D",
-  "PHDF": "Ph.D",
-  "PHDP": "Ph.D",
-  "PHXF": "Ph.D",
-  "PHRF": "Ph.D",
-  "PHRP": "Ph.D",
+  "PHXP": "Ph.D XP",
+  "PHOF": "Ph.D OF",
+  "PHDF": "Ph.D DF",
+  "PHDP": "Ph.D DP",
+  "PHXF": "Ph.D XF",
+  "PHRF": "Ph.D RF",
+  "PHRP": "Ph.D RP",
 }
 
 def populate_bitsians():
