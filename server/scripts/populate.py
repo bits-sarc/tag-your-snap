@@ -77,7 +77,8 @@ def populate_bitsians():
         prefix = ""
         branch_name = ""
         if user_type == "P":
-            continue
+            prefix = "p"
+            branch_name = bits_id[4:8]
         elif user_type == "H":
             prefix = "h"
             branch_name = bits_id[4:8]
@@ -91,8 +92,8 @@ def populate_bitsians():
                 if bits_id[6] == "P" or bits_id[6] == "T":
                     continue
                 branch_name = f"BX{bits_id[6:8]}"
-            elif bits_id[:4] == "2024" and bits_id[6:8] == "CP": # 2024A4CP0327P
-                branch_name = "RMIT"
+            elif bits_id[:4] == "2024" and bits_id[6:8] != "PS": # 2024A4CP0327P
+              branch_name = bits_id[4:8]
             else:
                 continue
         username = ws.cell(row=i, column=3).value
