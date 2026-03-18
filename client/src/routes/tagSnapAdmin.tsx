@@ -98,7 +98,7 @@ export default function TagSnapAdmin() {
           "Authorization": `Bearer ${Cookies.get('jwt')}`
         },
         // replace_all: false means it keeps already-tagged dots safe
-        body: JSON.stringify({ replace_all: false }),
+        body: JSON.stringify({ replace_all: false, confidence: 0.2 }),
       });
 
       const json = await response.json();
