@@ -455,7 +455,7 @@ class SnapAutoDetectView(APIView):
             detect_img = img
             scale = 1.0
  
-            TARGET_WIDTH = 1200   # upscale to this width for detection
+            TARGET_WIDTH = 3000 # upscale to this width for detection
             if orig_w < TARGET_WIDTH:
                 scale = TARGET_WIDTH / orig_w
                 new_w = int(orig_w * scale)
@@ -464,7 +464,7 @@ class SnapAutoDetectView(APIView):
                 print(f"[autodetect] {branch_code}: upscaled {orig_w}x{orig_h} → {new_w}x{new_h} for detection")
  
             # ── 4. run detection ─────────────────────────────────────────────
-            confidence_threshold = float(request.data.get("confidence", 0.45))
+            confidence_threshold = float(request.data.get("confidence", 0.15))
             faces_scaled = detect_faces_dnn(detect_img, confidence_threshold)
  
             print(f"[autodetect] {branch_code}: found {len(faces_scaled)} faces "
