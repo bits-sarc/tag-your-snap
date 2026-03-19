@@ -47,7 +47,6 @@ branch_full_names = {
   "H153": "M. Pharmacy (Pharmacology)",
   "H154": "MBA",
   "D2": "M.Sc. Tech (General Studies)",
-  "PHXF": "Ph.D Chemical Engineering",
   "PHXH": "Ph.D Humanities & Social Science",
   "PHPH": "PhD. Pharmacy",
   "PHCS": "Ph.D Computer Science & Information Systems",
@@ -65,7 +64,14 @@ branch_full_names = {
   "AAIS": "B.E. Electronics and Communication Engineering (2+2 ISU)",
   "A3UB": "B.E. Electrical and Electronics Engineering (2+2 UB)",
   "A4RM": "B.E. Mechanical (RMIT)",
-  "A2RM": "B.E. Civil Engineering (RMIT)"
+  "A2RM": "B.E. Civil Engineering (RMIT)",
+  "PHXP": "Ph.D XP",
+  "PHOF": "Ph.D OF",
+  "PHDF": "Ph.D DF",
+  "PHDP": "Ph.D DP",
+  "PHXF": "Ph.D XF",
+  "PHRF": "Ph.D RF",
+  "PHRP": "Ph.D RP",
 }
 
 def populate_bitsians():
@@ -77,7 +83,8 @@ def populate_bitsians():
         prefix = ""
         branch_name = ""
         if user_type == "P":
-            continue
+            prefix = "p"
+            branch_name = bits_id[4:8]
         elif user_type == "H":
             prefix = "h"
             branch_name = bits_id[4:8]
@@ -91,8 +98,8 @@ def populate_bitsians():
                 if bits_id[6] == "P" or bits_id[6] == "T":
                     continue
                 branch_name = f"BX{bits_id[6:8]}"
-            elif bits_id[:4] == "2024" and bits_id[6:8] == "CP": # 2024A4CP0327P
-                branch_name = "RMIT"
+            elif bits_id[:4] == "2024" and bits_id[6:8] != "PS": # 2024A4CP0327P
+              branch_name = bits_id[4:8]
             else:
                 continue
         username = ws.cell(row=i, column=3).value
