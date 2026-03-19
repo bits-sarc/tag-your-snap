@@ -97,6 +97,18 @@ def run():
             prof = prof.replace("PhD", "")
             for branch_code in branches:
                 username = "".join(prof.split(" ")) + branch_code
-                user = User.objects.create(username=username)
-                branch = Branch.objects.get(branch_code=branch_code)
-                UserProfile.objects.create(user=user, name=prof, branch=branch, is_prof=True)
+                
+                # Use get_or_create for Branch (smart fallback)
+                branch, _ = Branch.objects.get_or_create(
+                    branch_code=branch_code, 
+                    defaults={'branch_name': branch_code}
+                )
+
+                # Use get_or_create for User (skips existing)
+                user, created = User.objects.get_or_create(username=username)
+                
+                # Use get_or_create for Profile
+                UserProfile.objects.get_or_create(
+                    user=user, 
+                    defaults={'name': prof, 'branch': branch, 'is_prof': True}
+                )
