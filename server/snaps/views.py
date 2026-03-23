@@ -21,8 +21,8 @@ Greetings from Student Alumni Relations Cell!
 Thank you for using tag-your-snap. %s has tagged you in your batch snaps. Kindly <a href='%s'>click this link</a> to go to the website where you can login and confirm the tag.
 If there is any issue regarding the tag you can contact the undersigned.
 
-Name: Prithvi Gowda C
-Phone: <a href="tel:+91 96632 74487">+91 96632 74487</a>
+Name: Vedant Jain
+Phone: <a href="tel:+91 96801 68982">+91 96801 68982</a>
 
 </pre>"""
     return body
@@ -229,10 +229,13 @@ class SnapDetailView(APIView):
 
             for tag in new_taggings:
                 loc = Location.objects.get(pk=tag["id"])
-                user = UserProfile.objects.get(
-                    pk=tag["userprofile_id"], branch__branch_code=branch_code
-                )
-                added_by = request.user.profile
+                if request.user.is_staff or request.user.is_superuser:
+                    user = UserProfile.objects.get(pk=tag["userprofile_id"])
+                else:
+                    user = UserProfile.objects.get(
+                        pk=tag["userprofile_id"], branch__branch_code=branch_code
+                    )
+                added_by = UserProfile.objects.filter(user=request.user).first()
                 if user != added_by:
                     if loc.locked and not (
                         request.user.is_staff or request.user.is_superuser
@@ -282,7 +285,7 @@ class SnapDetailView(APIView):
                 loc.added_by = added_by
                 loc.save()
                 user.save()
-                new_taggings = LocationSerializer(
+                final_locs = LocationSerializer(
                     Location.objects.filter(branch__branch_code=branch_code), many=True
                 )
                 if user != added_by:
@@ -295,7 +298,7 @@ class SnapDetailView(APIView):
                     else:
                         added = request.user.profile.name
                     body = confirmation_mail()
-                    snaps_url = "snaps.bits-sarc.in"
+                    snaps_url = "bits-sarc.in"
                     to_emails = (user.user.email,)
                     html_message = body % (added, snaps_url)
                     plain_message = strip_tags(html_message)
@@ -311,7 +314,7 @@ class SnapDetailView(APIView):
                         print('email was sent to the USER!!!')
                     except Exception as e:
                         print(f'No email was sent: {e}')
-            return Response({"error": False, "data": new_taggings.data})
+            return Response({"error": False, "data": final_locs.data})
 
         except KeyError:
             return Response(

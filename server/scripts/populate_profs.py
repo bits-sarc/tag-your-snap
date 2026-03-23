@@ -1,5 +1,6 @@
 from users.models import *
 from snaps.models import *
+from django.contrib.auth.models import User
 import openpyxl
 import random
 
@@ -112,3 +113,6 @@ def run():
                     user=user, 
                     defaults={'name': prof, 'branch': branch, 'is_prof': True}
                 )
+
+if __name__ == "__main__":
+    run()
