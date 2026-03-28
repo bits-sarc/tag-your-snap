@@ -235,7 +235,7 @@ class SnapDetailView(APIView):
                     user = UserProfile.objects.get(
                         pk=tag["userprofile_id"], branch__branch_code=branch_code
                     )
-                added_by = UserProfile.objects.filter(user=request.user).first()
+                added_by = request.user.profile
                 if user != added_by:
                     if loc.locked and not (
                         request.user.is_staff or request.user.is_superuser
@@ -289,7 +289,7 @@ class SnapDetailView(APIView):
                     Location.objects.filter(branch__branch_code=branch_code), many=True
                 )
                 if user != added_by:
-                    subject = "Confirm your batch snaps tag"
+                    subject = "[Action Required] Confirm your batch snaps tag"
                     from_email = (
                         "Student Alumni Relations Cell <alumnicell@pilani.bits-pilani.ac.in>"
                     )
